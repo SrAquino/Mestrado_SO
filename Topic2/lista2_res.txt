@@ -1,0 +1,4 @@
+1) Explique quais são as condições para um processo passar do estado bloqueado para o
+executando.
+
+R) 

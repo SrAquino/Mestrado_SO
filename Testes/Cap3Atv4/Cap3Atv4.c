@@ -5,6 +5,7 @@
  * O programa deverá receber um parâmetro que é o número de filósofos a serem criados.
  * Para criação de processos, a chamada fork deve ser utilizada.
  */
+#define _GNU_SOURCE
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,8 +15,8 @@
 #include <unistd.h>
 #include <sys/mman.h>
 #include <semaphore.h>
-#include <fcntl.h>    /* For O_* constants */
-#include <sys/stat.h> /* For mode constants */
+#include <fcntl.h>    
+#include <sys/stat.h> 
 
 #define PENSANDO 0
 #define COM_FOME 1
@@ -26,20 +27,36 @@ int qnt_filosofos;
 int *state;
 sem_t *mutex, *semaf;
 
+void printStates() {
+    printf("Estados: ");
+    for (int i = 0; i < qnt_filosofos; i++) {
+        printf("%d ", state[i]);
+    }
+    printf("\n");
+    
+}
+
 void teste(int filosofo)
 {
-    printf("Filosofo %d verificando se pode comer\n", filosofo);
+    printf("Filosofo %d verificando se pode comer pois ele está %d\n", filosofo, state[filosofo]);
 
+    printf("%d %d %d\n", state[filosofo] == COM_FOME,
+        state[(filosofo + qnt_filosofos - 1) % qnt_filosofos] != COMENDO,
+        state[(filosofo + 1) % qnt_filosofos] != COMENDO);
+
+    sem_wait(mutex); 
     if (state[filosofo] == COM_FOME &&
-        state[(filosofo + N - 1) % N] != COMENDO &&
-        state[(filosofo + 1) % N] != COMENDO)
+        state[(filosofo + qnt_filosofos - 1) % qnt_filosofos] != COMENDO &&
+        state[(filosofo + 1) % qnt_filosofos] != COMENDO)
     {
 
         printf("Ele pode!\n");
+        printStates();
         state[filosofo] = COMENDO;
+        printStates();
         sem_post(&semaf[filosofo]);
-        printf("desbloqueado filosofo %d \n", filosofo);
     }
+    sem_post(mutex);
 }
 
 void pensando(int filosofo)
@@ -56,30 +73,39 @@ void comendo(int filosofo)
 
 void pegandoGarfo(int filosofo)
 {
-    printf("Filosofo %d está pegando os garfos\n", filosofo);
-    sem_wait(mutex);
+    printf("Filosofo %d preparando para pegar os garfos\n", filosofo);
+    sem_wait(mutex);    // Entra na região crítica
 
+    printf("O estado do filósofo %d mudou DE: %d\n",filosofo,state[filosofo]);
+    printStates();
     state[filosofo] = COM_FOME;
+    printStates();
+    printf("%d (1)PARA: %d\n",filosofo,state[filosofo]);
+    sem_post(mutex);    // Sai da região crítica
 
     teste(filosofo);
 
-    sem_post(mutex);
     sem_wait(&semaf[filosofo]);
-    printf("sem_wait desbloqueado\n");
+    printf("filosofo %d pegou os garfos!\n",filosofo);
 }
 
 void largandoGarfo(int filosofo)
 {
     printf("Filosofo %d está largando os garfos\n", filosofo);
-    sem_wait(mutex);
+    sem_wait(mutex);    // Entra na região crítica
 
+    printf("O estado do filósofo %d mudou DE: %d\n",filosofo,state[filosofo]);
+    printStates();
     state[filosofo] = PENSANDO;
+    printStates();
+    printf("%d (0)PARA: %d\n",filosofo,state[filosofo]);
 
-    printf("Esquedo: %d Direito: %d \n", ((filosofo + N - 1) % N), ((filosofo + 1) % N));
-    teste((filosofo + N - 1) % N);
-    teste((filosofo + 1) % N);
+    printf("Esquedo: %d Direito: %d \n", ((filosofo + qnt_filosofos - 1) % qnt_filosofos), ((filosofo + 1) % qnt_filosofos));
+    sem_post(mutex);    // Sai da região crítica
+    
+    teste((filosofo + qnt_filosofos - 1) % qnt_filosofos);
+    teste((filosofo + 1) % qnt_filosofos);
 
-    sem_post(mutex);
 }
 
 void rotinaDoFilosofo(int filosofo)
@@ -93,6 +119,8 @@ void rotinaDoFilosofo(int filosofo)
     }
 }
 
+
+
 int main()
 {
 
@@ -102,7 +130,7 @@ int main()
     state = mmap(NULL, (sizeof(int) * qnt_filosofos), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
 
     mutex = mmap(NULL, (sizeof(sem_t)), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-    sem_init(mutex, 0, 1);
+    sem_init(mutex, 1, 1);
 
     semaf = mmap(NULL, (sizeof(sem_t) * qnt_filosofos), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
 
@@ -122,12 +150,12 @@ int main()
 
     while (1)
     {
-        sleep(10); // Mantém o processo principal vivo
+        sleep(1); // Mantém o processo principal vivo
     }
 
-    munmap(state, sizeof(int) * N);
+    munmap(state, sizeof(int) * qnt_filosofos);
     munmap(mutex, sizeof(sem_t));
-    munmap(semaf, sizeof(sem_t) * N);
+    munmap(semaf, sizeof(sem_t) * qnt_filosofos);
 
     return 0;
 }
