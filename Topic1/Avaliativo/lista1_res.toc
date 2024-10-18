@@ -1,0 +1,12 @@
+\babel@toc {brazil}{}\relax 
+\contentsline {section}{\numberline {1}Perguntas}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}O que é um sistema operacional?}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}O que o modo supervisor e usuário?}{2}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Quais os passos para a realizar uma chamada de sistema?}{2}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}O que é o sistema de proteção de arquivos?}{3}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}O que é um processo?}{3}{subsection.1.5}%
+\contentsline {subsection}{\numberline {1.6}O que é espaço de endereçamento e memória virtual?}{3}{subsection.1.6}%
+\contentsline {subsection}{\numberline {1.7}Como estruturar um sistema operacional de micronúcleo?}{4}{subsection.1.7}%
+\contentsline {section}{\numberline {2}Desenvolver um programa}{4}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Sorteia um número entre 0 e 200}{4}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Imprimirá números sequenciais em intervalos de 1 segundo}{4}{subsection.2.2}%
