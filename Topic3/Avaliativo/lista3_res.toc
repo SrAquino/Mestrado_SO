@@ -1,0 +1,21 @@
+\babel@toc {brazil}{}\relax 
+\contentsline {section}{\numberline {1}Perguntas}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}O que é uma condição de corrida}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Obter exclusão mútua}{2}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Exclusão mútua utilizando Mutexes}{2}{subsection.1.3}%
+\contentsline {paragraph}{Passo 1: Incluir o Cabeçalho Pthread}{3}{section*.2}%
+\contentsline {paragraph}{Passo 2: Declarar e Inicializar o Mutex}{3}{section*.3}%
+\contentsline {paragraph}{Passo 3: Usar o Mutex na Região Crítica}{3}{section*.4}%
+\contentsline {paragraph}{Passo 4: Finalizar o Mutex}{3}{section*.5}%
+\contentsline {paragraph}{Implementação de Variáveis de Condição em Pthreads}{3}{section*.6}%
+\contentsline {paragraph}{Passo 1: Declarar e Inicializar a Variável de Condição}{3}{section*.7}%
+\contentsline {paragraph}{Passo 2: Usar a Variável de Condição}{3}{section*.8}%
+\contentsline {paragraph}{Passo 3: Finalizar a Variável de Condição}{4}{section*.9}%
+\contentsline {subsection}{\numberline {1.4}Round Robin}{4}{subsection.1.4}%
+\contentsline {paragraph}{Funcionamento do Round Robin}{4}{section*.10}%
+\contentsline {paragraph}{Exemplo}{4}{section*.11}%
+\contentsline {paragraph}{Escalonamento com Round Robin}{5}{section*.12}%
+\contentsline {paragraph}{Tabela de Execução}{5}{section*.13}%
+\contentsline {subsection}{\numberline {1.5}Prioridades dinâmicas}{5}{subsection.1.5}%
+\contentsline {section}{\numberline {2}Desenvolver um programa}{5}{section.2}%
+\contentsline {subsection}{\numberline {2.1}06) Solução de Peterson.}{5}{subsection.2.1}%
