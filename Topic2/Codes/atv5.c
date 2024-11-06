@@ -22,16 +22,19 @@ void *thread_function(void *args)
 
 int main()
 {
+    srand(time(NULL));
+
     int pipes[NUM_FILHOS][2]; // Pipes para comunicação com os filhos
     int thread_args[NUM_THREADS];
+    int pids[NUM_FILHOS];
 
     for (int i = 0; i < NUM_FILHOS; i++)
     {
         pipe(pipes[i]);
-        close(pipes[i][0]); // Fecha o lado de leitura do pipe
-
-        if (fork() == 0)
+        pids[i] = fork();
+        if (pids[i] == 0)
         { // Filho
+            close(pipes[i][0]); // Fecha o lado de leitura do pipe
             pthread_t threads[NUM_THREADS];
 
             for (int j = 0; j < NUM_THREADS; j++)
@@ -45,9 +48,10 @@ int main()
                 pthread_join(threads[j], NULL); // Esperando as threads terminarem
             }
 
-            pid_t pid_filho = getpid();
+            int pid_filho = (int)getpid();
+            printf("Filho : %d\n",pid_filho);
 
-            write(pipes[i][1], &pid_filho, sizeof(pid_t));
+            write(pipes[i][1], &pid_filho, sizeof(int));
             close(pipes[i][1]); // Fechando o lado de escrita do pipe
             exit(EXIT_SUCCESS);
         }
@@ -57,12 +61,13 @@ int main()
         }
     }
 
-    pid_t pids[NUM_FILHOS];
+    int filhos_pids_pipe[NUM_FILHOS];
 
     for (int i = 0; i < NUM_FILHOS; i++)
     {
         // Lendo PIDs dos filhos
-        read(pipes[i][0], &pids[i], sizeof(pid_t));
+        read(pipes[i][0], &filhos_pids_pipe[i], sizeof(int));
+        close(pipes[i][0]);
     }
 
     // Esperando os filhos terminarem

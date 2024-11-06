@@ -1,0 +1,241 @@
+\documentclass{article}
+\usepackage{csquotes}       % Para lidar com aspas de maneira apropriada com babel
+
+
+\usepackage[brazil]{babel}  % Define o idioma para português do Brasil
+
+\usepackage{graphicx}       % Pacote para inserção de imagens
+\usepackage{hyperref}       % Pacote para links clicáveis
+\usepackage{enumitem}       % Pacote para personalização de listas
+
+\usepackage{geometry}       % Pacote para ajustar margens
+
+\geometry{                  % Definindo margens personalizadas (em centímetros)
+  left=2.5cm,  % Margem esquerda
+  right=2.5cm, % Margem direita
+  top=2.5cm,   % Margem superior
+  bottom=2.5cm % Margem inferior
+}
+
+\usepackage[backend=biber,style=ieee]{biblatex}     % Estilo ieee para bibliografia numerada
+\addbibresource{ref.bib}                            % Arquivo .bib
+
+
+\begin{document}
+\sloppy
+
+\begin{titlepage}
+    \centering
+    % Cabeçalho personalizado
+    \includegraphics[width=0.3\textwidth]{../../Topic1/Avaliativo/Imagens/Logo UFLA - Colorida chapada.png}
+
+    \vspace*{2cm} % Espaçamento vertical antes do cabeçalho
+    \Large
+    Universidade Federal de Lavras\\
+    PPGCC\\
+    PCC508 – Sistemas Operacionais\\
+    
+    \vspace{2cm} % Espaço entre o cabeçalho e o título
+    \huge % Define o tamanho da fonte do título
+    \textbf{Lista Avaliativa 3}
+    
+    \vfill % Adiciona um espaçamento flexível antes do rodapé (opcional)
+    
+    % Opcionalmente, você pode incluir seu nome e a data aqui
+    \large
+    Douglas Aquino T. Mendes\\
+    \today % Insere a data atual
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{Perguntas}
+\subsection{O que é uma condição de corrida}
+\textbf{Pergunta:} 1) Explique o que é uma condição de corrida o como a exclusão mútua de regiões críticas pode ser utilizada para prevenir o problema\newline
+
+\textbf{Resposta:} Uma condição de corrida é um problema que ocorre em sistemas computacionais quando dois ou mais processos ou threads acessam e manipulam dados compartilhados de forma concorrente, levando a resultados indesejados ou inconsistentes. Esse problema surge em ambientes onde a ordem de execução das operações não é controlada, resultando em situações em que o comportamento do sistema depende da sequência de execução dos processos.
+
+A exclusão mútua é uma técnica de controle de concorrência que garante que apenas um processo ou thread possa acessar uma região crítica de código por vez. Uma região crítica é qualquer parte do código que acessa recursos compartilhados, como variáveis ou estruturas de dados, e onde a manipulação incorreta pode levar a inconsistências ou condições de corrida \cite{tanenbaum2021,embarcados2023}.
+
+\subsection{Obter exclusão mútua}
+\textbf{Pergunta:} 2) Como pode-se obter exclusão mútua utilizando-se a TSL? E desabilitando interrupções? São soluções boas? Quais as desvantagens?\newline
+
+\textbf{Resposta:} A exclusão mútua pode ser implementada utilizando a instrução TSL (Test and Set Lock), que é uma operação atômica utilizada para garantir que apenas um processo ou thread acesse uma região crítica de código por vez.
+A instrução TSL realiza duas operações atômicas, Testa o valor de um lock (bloqueio) e Define o valor do lock para ocupado, se o lock estiver livre. Se o lock já estiver ocupado, a instrução simplesmente retorna o valor atual do lock.
+
+A implementação com TSL geralmente resulta em um spinlock, onde uma thread ou processo fica em loop ativo (busy-waiting) até que consiga adquirir o lock. Isso pode ser ineficiente, especialmente em sistemas com alta contenda, pois consome ciclos de CPU.
+
+A exclusão mútua também pode ser implementada desabilitando interrupções,essa abordagem garante que um processo ou thread possa acessar uma região crítica sem ser interrompido, evitando condições de corrida.
+
+A desabilitação de interrupções pode ser eficiente em sistemas de tempo real ou em sistemas embarcados, onde é crítico garantir que uma operação não seja interrompida. No entanto, em sistemas multitarefa mais complexos, essa técnica pode levar a problemas de desempenho.
+
+\subsection{Exclusão mútua utilizando Mutexes}
+\textbf{Pergunta:} 3) Explique como funciona o método de exclusão mútua utilizando Mutexes, abordando sua implementação na biblioteca Pthreads e também variáveis de condição\newline
+
+\textbf{Resposta:} O método de exclusão mútua utilizando mutexes é uma abordagem utilizada em programação concorrente para garantir que apenas um thread acesse uma região crítica de código por vez. A implementação de mutexes e variáveis de condição na biblioteca Pthreads (POSIX Threads) é uma forma de gerenciar a sincronização entre threads em sistemas POSIX, como Linux e UNIX.
+
+Um mutex é um objeto de sincronização que permite que somente um thread bloqueie e acesse uma seção crítica do código. O mutex possui dois estados, bloqueado (locked) e livre (unlocked). Quando um thread tenta adquirir um mutex, se o mutex estiver livre, o thread o bloqueia e pode entrar na região crítica. Se o mutex já estiver bloqueado por outro thread, o thread atual será colocado em espera até que o mutex seja liberado.
+
+A biblioteca Pthreads fornece funções para criar e gerenciar mutexes. Abaixo estão as principais etapas para implementar um mutex em Pthreads \cite{tanenbaum2021,nona2013}:
+
+\paragraph{Passo 1: Incluir o Cabeçalho Pthread}
+\begin{verbatim}
+#include <pthread.h>
+\end{verbatim}
+
+\paragraph{Passo 2: Declarar e Inicializar o Mutex}
+\begin{verbatim}
+pthread_mutex_t mutex;  // Declaração do mutex
+
+// Inicialização do mutex
+pthread_mutex_init(&mutex, NULL);
+\end{verbatim}
+
+\paragraph{Passo 3: Usar o Mutex na Região Crítica}
+\begin{verbatim}
+void *thread_function(void *arg) {
+    pthread_mutex_lock(&mutex);  // Tenta adquirir o mutex
+
+    // Região Crítica: código que acessa recursos compartilhados
+
+    pthread_mutex_unlock(&mutex);  // Libera o mutex
+    return NULL;
+}
+\end{verbatim}
+
+\paragraph{Passo 4: Finalizar o Mutex}
+Após o uso, o mutex deve ser destruído:
+\begin{verbatim}
+pthread_mutex_destroy(&mutex);  // Destrói o mutex
+\end{verbatim}
+
+As variáveis de condição são utilizadas em conjunto com mutexes para permitir que threads esperem por certas condições antes de prosseguir com a execução. Elas são úteis em situações onde um thread deve esperar por uma condição ser verdadeira antes de acessar uma região crítica ou um recurso compartilhado.
+
+\paragraph{Implementação de Variáveis de Condição em Pthreads}
+
+\paragraph{Passo 1: Declarar e Inicializar a Variável de Condição}
+\begin{verbatim}
+pthread_cond_t cond_var;  // Declaração da variável de condição
+pthread_mutex_t mutex;    // Declaração do mutex
+
+// Inicialização
+pthread_mutex_init(&mutex, NULL);
+pthread_cond_init(&cond_var, NULL);
+\end{verbatim}
+
+\paragraph{Passo 2: Usar a Variável de Condição}
+\begin{verbatim}
+void *producer(void *arg) {
+    pthread_mutex_lock(&mutex);
+    
+    // Produz um item e modifica uma condição
+    // Se necessário, sinaliza a condição para que outro thread possa prosseguir
+    pthread_cond_signal(&cond_var);
+    
+    pthread_mutex_unlock(&mutex);
+    return NULL;
+}
+
+void *consumer(void *arg) {
+    pthread_mutex_lock(&mutex);
+    
+    // Espera até que a condição seja verdadeira
+    while (/* condição não satisfeita */) {
+        pthread_cond_wait(&cond_var, &mutex);  // Espera e libera o mutex
+    }
+
+    // Consome um item
+
+    pthread_mutex_unlock(&mutex);
+    return NULL;
+}
+\end{verbatim}
+
+\paragraph{Passo 3: Finalizar a Variável de Condição}
+\begin{verbatim}
+pthread_cond_destroy(&cond_var);  // Destrói a variável de condição
+pthread_mutex_destroy(&mutex);     // Destrói o mutex
+\end{verbatim}
+
+\subsection{Round Robin}
+\textbf{Pergunta:} Descreva, com exemplo, como funciona o escalonamento conhecido como “Round Robin".\newline
+
+\textbf{Resposta:} O escalonamento Round Robin (RR) é um algoritmo de gerenciamento de processos baseado na atribuição de um tempo fixo de CPU a cada processo em uma fila de prontos, permitindo que todos os processos tenham uma oportunidade equitativa de se executar. 
+
+\paragraph{Funcionamento do Round Robin}
+
+\begin{enumerate}
+    \item \textbf{Fila de Prontos}: Os processos que estão prontos para serem executados são organizados em uma fila.
+    \item \textbf{Tempo de Quantum}: Cada processo é atribuído a um tempo fixo de CPU, denominado \textit{quantum}. Quando um processo utiliza o quantum, ele é colocado no final da fila e o próximo processo da fila é iniciado.
+    \item \textbf{Preempção}: Se um processo não terminar sua execução dentro do tempo de quantum, ele é interrompido (preempted), e o controle é passado para o próximo processo na fila.
+    \item \textbf{Retorno à Fila}: O processo que foi interrompido retorna ao final da fila de prontos, aguardando sua vez de ser escalonado novamente.
+    \item \textbf{Ciclo}: O ciclo se repete até que todos os processos sejam concluídos.
+\end{enumerate}
+
+\paragraph{Exemplo} Considere um cenário com três processos: \( P_1, P_2, P_3 \), como ilustrado na tabela \ref{tab:RRexemplo}, e um tempo de quantum de 4 unidades de tempo.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Processo} & \textbf{Tempo de Chegada} & \textbf{Tempo de Execução} \\
+        \hline
+        \( P_1 \) & 0 & 8 \\
+        \( P_2 \) & 1 & 4 \\
+        \( P_3 \) & 2 & 9 \\
+        \hline
+    \end{tabular}
+    \caption{Processos com Tempo de Chegada e Execução}
+    \label{tab:RRexemplo}
+\end{table}
+
+\paragraph{Escalonamento com Round Robin}
+
+\begin{enumerate}
+    \item \textbf{Execução do Processo \( P_1 \)}: O primeiro processo na fila é \( P_1 \). Ele é executado por 4 unidades de tempo (de 0 a 4), restando 4 unidades.
+    \item \textbf{Execução do Processo \( P_2 \)}: O próximo na fila é \( P_2 \). Ele é executado por 4 unidades de tempo (de 4 a 8), e agora é concluído (0 unidades restantes).
+    \item \textbf{Execução do Processo \( P_3 \)}: O próximo na fila é \( P_3 \). Ele é executado por 4 unidades de tempo (de 8 a 12), restando 5 unidades.
+    \item \textbf{Retorno do Processo \( P_1 \)}: O algoritmo volta para \( P_1 \), que foi interrompido anteriormente. Ele é executado por 4 unidades (de 12 a 16) e agora está concluído.
+    \item \textbf{Retorno do Processo \( P_3 \)}: O próximo na fila é \( P_3 \). Ele é executado por 4 unidades (de 16 a 20), restando 1 unidade.
+    \item \textbf{Finalização do Processo \( P_3 \)}: O algoritmo volta para \( P_3 \) novamente, e ele é executado por 1 unidade (de 20 a 21), agora completando sua execução.
+\end{enumerate}
+
+\paragraph{Tabela de Execução}
+
+A tabela \ref{tab:execRR} resume a execução:
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Tempo} & \textbf{Executando} \\
+        \hline
+        0-4   & \( P_1 \)  \\
+        4-8   & \( P_2 \)  \\
+        8-12  & \( P_3 \)  \\
+        12-16 & \( P_1 \)  \\
+        16-20 & \( P_3 \)  \\
+        20-21 & \( P_3 \)  \\
+        \hline
+    \end{tabular}
+    \caption{Tabela de Execução do Algoritmo Round Robin}
+    \label{tab:execRR}
+\end{table}
+
+\subsection{Prioridades dinâmicas}
+\textbf{Pergunta:} O algoritmo de escalonamento baseado em prioridades dinâmicas, onde a prioridade é calculada com 1/f (f = fração do quantum utilizada), prioriza qual tipo de processo? Qual a vantagem de priorizar esse tipo de processo?\newline
+
+\textbf{Resposta:} O algoritmo de escalonamento baseado em prioridades dinâmicas prioriza processos que utilizam menos tempo de CPU em relação ao quantum alocado. Em outras palavras, quanto menor a fração do quantum que um processo utiliza, maior será sua prioridade. Processos interativos se beneficiam dessa abordagem pois são processos que frequentemente requerem resposta do usuário e tendem a usar menos tempo de CPU por interação, pois aguardam entradas do usuário ou eventos externos. 
+
+Ao priorizar processos que consomem menos tempo de CPU, o sistema melhora a responsividade geral onde atrasos podem resultar em uma experiência do usuário insatisfatória. E esse tipo de escalonamento ajuda a evitar a monopolização da CPU por processos que consomem muito tempo. 
+
+\section{Desenvolver um programa}
+\subsection{06) Solução de Peterson.}
+\textbf{Enunciado:} Nesse exercício, um contador compartilhado será acessado por 2 threads simultaneamente. Elas devem pegar o valor do contador, imprimir na tela, executar threadyield, somar um no contador. Duas versões devem ser feitas: uma sem nenhum controle de condição de corrida e outra utilizando a solução de Peterson para isso\newline
+
+\textbf{Rsposta:} Os codigos estão nos arquivos atv6\_s.c e atv6\_pat.c, como base foi utilizado a solução do livro SISTEMAS OPERACIONAIS MODERNOS \cite{tanenbaum2021}, págs.: 85 e 86.
+
+\printbibliography % Imprime a lista de referências
+
+\end{document}
