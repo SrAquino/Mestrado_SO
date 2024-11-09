@@ -20,6 +20,7 @@
 typedef struct
 {
     char messages[MAX_MSG_COUNT][MAX_MSG_LENGTH];
+    char usr_msg[MAX_MSG_COUNT][MAX_USERNAME_LENGTH];
     int read_counters[MAX_MSG_COUNT];
     time_t timestamps[MAX_MSG_COUNT];
     int write_index;
@@ -30,7 +31,7 @@ typedef struct
 
 SharedBuffer *shared_buffer;
 sem_t *sem;
-pthread_t supervisor_tid, heartbeat_tid;
+pthread_t supervisor_tid, heartbeat_tid, read_message_tid;
 int instance_id;
 
 void *supervisor_thread()
@@ -47,7 +48,7 @@ void *supervisor_thread()
             //  Verifica se a instância i está inativa há mais de 15 segundos
             if (shared_buffer->heartbeats[i] != 0 && difftime(current_time, shared_buffer->heartbeats[i]) > 15)
             {
-                printf("SUPERVISOR: Thread ocisosa!\n");
+                printf("SUPERVISOR: %s está AFK!\n",shared_buffer->usernames[i]);
                 shared_buffer->heartbeats[i] = 0; // Marca a instância como inativa
                 if (shared_buffer->active_instances > 0)
                 {
@@ -65,7 +66,7 @@ void *supervisor_thread()
 
 void *update_heartbeat(void *args)
 {
-    //int instance_id = *(int *)args;
+    // int instance_id = *(int *)args;
     printf("%d TUM-TUM\n", instance_id);
     while (1)
     {
@@ -77,15 +78,6 @@ void *update_heartbeat(void *args)
     }
 }
 
-/*
-void register_instance(SharedBuffer *buffer, sem_t *sem)
-{
-    sem_wait(sem);
-    buffer->active_instances++;
-    sem_post(sem);
-}
-*/
-
 void unregister_instance()
 {
     sem_wait(sem);
@@ -94,37 +86,52 @@ void unregister_instance()
     sem_post(sem);
 }
 
-void produce_message(SharedBuffer *buffer, const char *message, sem_t *sem)
+void produce_message(char *usr)
 {
-    sem_wait(sem);
+    char message[MAX_MSG_LENGTH];
 
-    time_t current_time = time(NULL);
-
-    // Verifica se a mensagem pode ser sobrescrita (lida por todas ou expirada)
-    if (buffer->read_counters[buffer->write_index] == 0 ||
-        difftime(current_time, buffer->timestamps[buffer->write_index]) > 10)
+    while (strcmp(message, "exit") != 0)
     {
+        message[0] = '\0'; 
+        fgets(message, sizeof(message), stdin);
+        time_t current_time = time(NULL);
 
-        strncpy(buffer->messages[buffer->write_index], message, MAX_MSG_LENGTH);
-        buffer->read_counters[buffer->write_index] = buffer->active_instances; // Reseta o contador de leitura
-        buffer->timestamps[buffer->write_index] = current_time;                // Atualiza o timestamp
-        buffer->write_index = (buffer->write_index + 1) % MAX_MSG_COUNT;       // Atualiza o índice de escrita
+        sem_wait(sem);
+
+        // Verifica se a mensagem pode ser sobrescrita (lida por todas ou expirada)
+        if (shared_buffer->read_counters[shared_buffer->write_index] == 0 ||
+            difftime(current_time, shared_buffer->timestamps[shared_buffer->write_index]) > 10)
+        {
+
+            strncpy(shared_buffer->messages[shared_buffer->write_index], message, MAX_MSG_LENGTH);
+            strcpy(shared_buffer->usr_msg[shared_buffer->write_index],usr);
+            shared_buffer->read_counters[shared_buffer->write_index] = shared_buffer->active_instances; // Reseta o contador de leitura
+            shared_buffer->timestamps[shared_buffer->write_index] = current_time;                       // Atualiza o timestamp
+            shared_buffer->write_index = (shared_buffer->write_index + 1) % MAX_MSG_COUNT;              // Atualiza o índice de escrita
+        }
+
+        sem_post(sem);
     }
-
-    sem_post(sem);
 }
 
-void consume_message(SharedBuffer *buffer, int message_index, sem_t *sem)
+void *consume_message()
 {
-    sem_wait(sem);
-
-    // Lógica para ler a mensagem e processá-la
-    if (buffer->read_counters[message_index] > 0)
+    int message_index = 0;
+    while (1)
     {
-        buffer->read_counters[message_index]--; // Marca a mensagem como lida por uma instância
-    }
+        while (message_index == shared_buffer->write_index);
+        
+        sem_wait(sem);
 
-    sem_post(sem);
+        if (shared_buffer->read_counters[message_index] > 0)
+        {
+            printf("%s: %s\n", shared_buffer->usr_msg[message_index],shared_buffer->messages[message_index]);
+            shared_buffer->read_counters[message_index]--; // Marca a mensagem como lida
+        }
+
+        message_index = (message_index + 1) % MAX_MSG_COUNT;
+        sem_post(sem);
+    }
 }
 
 void *monitor_messages(void *arg)
@@ -178,30 +185,22 @@ int register_instance_id(char *username)
     return -1; // Se a capacidade máxima foi atingida
 }
 
-void cleanup_instance()
-{
-    sem_wait(sem);
-    if (shared_buffer->active_instances > 0)
-    {
-        shared_buffer->active_instances--;
-    }
-    sem_post(sem);
-}
-
-void handle_sigint(int sig)
+void cleanup_instance(int sig)
 {
     printf("\nExecutando a limpeza...\n");
 
     pthread_cancel(supervisor_tid);
     pthread_cancel(heartbeat_tid);
     unregister_instance();
-
-    cleanup_instance();
+    sem_close(sem);
+    sem_unlink(SEM_NAME);
     exit(0);
 }
 
 int main()
 {
+    signal(SIGINT, cleanup_instance);
+
     int fd = open("/tmp/chat", O_RDWR | O_CREAT, 0744); // Leitura e Escrita | Existe ? Cria : Edita
     if (fd == -1)
     {
@@ -258,16 +257,12 @@ int main()
 
     pthread_create(&supervisor_tid, NULL, supervisor_thread, NULL);
     pthread_create(&heartbeat_tid, NULL, update_heartbeat, (void *)&instance_id);
+    pthread_create(&read_message_tid, NULL, consume_message, NULL);
 
-    signal(SIGINT, handle_sigint);
+    produce_message(username);
 
-    atexit(cleanup_instance); // chama quando o programa fecha
-
-    pthread_join(supervisor_tid, NULL);
-    pthread_join(heartbeat_tid, NULL);
-
-    sem_close(sem);
-    sem_unlink(SEM_NAME);
-
+    
+    cleanup_instance(1);
+    
     return 0;
 }
