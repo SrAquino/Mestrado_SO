@@ -6,99 +6,268 @@
 #include <unistd.h>
 #include <string.h>
 #include <semaphore.h>
+#include <pthread.h>
+#include <time.h>
+#include <signal.h>
 
-#define TAMANHO 2000
-#define NOME_ARQUIVO "/tmp/chat"
-#define NOME_SEMAFORO_WRITER "/sem_writer"
-#define NOME_SEMAFORO_READER "/sem_reader"
+#define BUFFER_SIZE 1024   // Tamanho total da área de memória
+#define MAX_MSG_LENGTH 256 // Tamanho máximo de uma mensagem
+#define MAX_MSG_COUNT (BUFFER_SIZE / MAX_MSG_LENGTH)
+#define MAX_INSTANCES 10 // Número máximo de instâncias possíveis
+#define MAX_USERNAME_LENGTH 20
+#define SEM_NAME "/chat_semaphore"
 
-#define BUFFER_SIZE 100
-#define MSG_SIZE 400
+typedef struct
+{
+    char messages[MAX_MSG_COUNT][MAX_MSG_LENGTH];
+    int read_counters[MAX_MSG_COUNT];
+    time_t timestamps[MAX_MSG_COUNT];
+    int write_index;
+    int active_instances;
+    time_t heartbeats[MAX_INSTANCES];
+    char usernames[MAX_INSTANCES][MAX_USERNAME_LENGTH]; // Armazena nomes de usuários
+} SharedBuffer;
 
-typedef struct {
-    int MAIS_ANTIGA;
-    int MAIS_NOVA;
-    char buffer[BUFFER_SIZE][MSG_SIZE];
-} chat_mem;
+SharedBuffer *shared_buffer;
+sem_t *sem;
+pthread_t supervisor_tid, heartbeat_tid;
+int instance_id;
 
-int fd;
-chat_mem *shared_mem;
-sem_t *sem_writer;
-sem_t *sem_reader;
+void *supervisor_thread()
+{
+    while (1)
+    {
+        time_t current_time = time(NULL);
 
-void *tfunc_escritora() {
-    char msg[MSG_SIZE];
-    while (1) {
-        // Lê mensagem do usuário
-        printf("Digite uma mensagem: ");
-        fgets(msg, sizeof(msg), stdin);
+        sem_wait(sem); // Semáforo para sincronização
 
-        // Sincroniza com semáforo de escrita
-        sem_wait(sem_writer);
+        for (int i = 0; i < MAX_INSTANCES - 1; i++)
+        {
+            // printf("SUPERVISOR: Verificando . . .\n");
+            //  Verifica se a instância i está inativa há mais de 15 segundos
+            if (shared_buffer->heartbeats[i] != 0 && difftime(current_time, shared_buffer->heartbeats[i]) > 15)
+            {
+                printf("SUPERVISOR: Thread ocisosa!\n");
+                shared_buffer->heartbeats[i] = 0; // Marca a instância como inativa
+                if (shared_buffer->active_instances > 0)
+                {
+                    shared_buffer->active_instances--;
+                    shared_buffer->usernames[i][0] = '\0';
+                }
+            }
+        }
 
-        // Escreve a mensagem na posição correta
-        strncpy(shared_mem->buffer[shared_mem->MAIS_NOVA], msg, MSG_SIZE);
-        shared_mem->MAIS_NOVA = (shared_mem->MAIS_NOVA + 1) % BUFFER_SIZE;
-
-        // Sincroniza a memória mapeada e libera o semáforo de leitura
-        msync(shared_mem, sizeof(chat_mem), MS_SYNC);
-        sem_post(sem_reader);
+        sem_post(sem); // Libera o semáforo
+        // printf("SUPERVISOR: conferido!\n");
+        sleep(5); // Intervalo de verificação de 5 segundos
     }
-    return NULL;
 }
 
-void *tfunc_leitora() {
-    char msg[MSG_SIZE];
-    while (1) {
-        // Sincroniza com semáforo de leitura
-        sem_wait(sem_reader);
-
-        // Lê a mensagem mais antiga e avança o índice
-        strncpy(msg, shared_mem->buffer[shared_mem->MAIS_ANTIGA], MSG_SIZE);
-        shared_mem->MAIS_ANTIGA = (shared_mem->MAIS_ANTIGA + 1) % BUFFER_SIZE;
-
-        // Exibe a mensagem na tela
-        printf("Mensagem: %s\n", msg);
-
-        // Sincroniza a memória mapeada e libera o semáforo de escrita
-        msync(shared_mem, sizeof(chat_mem), MS_SYNC);
-        sem_post(sem_writer);
+void *update_heartbeat(void *args)
+{
+    //int instance_id = *(int *)args;
+    printf("%d TUM-TUM\n", instance_id);
+    while (1)
+    {
+        sem_wait(sem);
+        shared_buffer->heartbeats[instance_id] = time(NULL);
+        sem_post(sem);
+        // printf("%d vivo\n",instance_id);
+        sleep(3); // Intervalo de atualização de 3 segundos
     }
-    return NULL;
 }
 
-int main() {
-    pthread_t t_escritora, t_leitora;
+/*
+void register_instance(SharedBuffer *buffer, sem_t *sem)
+{
+    sem_wait(sem);
+    buffer->active_instances++;
+    sem_post(sem);
+}
+*/
 
-    // Cria o arquivo e mapeia a memória compartilhada
-    fd = open(NOME_ARQUIVO, O_RDWR | O_CREAT, 0666);
-    ftruncate(fd, sizeof(chat_mem));
-    shared_mem = mmap(NULL, sizeof(chat_mem), PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+void unregister_instance()
+{
+    sem_wait(sem);
+    shared_buffer->active_instances--;
+    shared_buffer->usernames[instance_id][0] = '\0';
+    sem_post(sem);
+}
 
-    // Inicializa os índices de controle da memória compartilhada
-    shared_mem->MAIS_ANTIGA = 0;
-    shared_mem->MAIS_NOVA = 0;
+void produce_message(SharedBuffer *buffer, const char *message, sem_t *sem)
+{
+    sem_wait(sem);
 
-    // Cria e inicializa os semáforos nomeados
-    sem_writer = sem_open(NOME_SEMAFORO_WRITER, O_CREAT, 0666, BUFFER_SIZE);
-    sem_reader = sem_open(NOME_SEMAFORO_READER, O_CREAT, 0666, 0);
+    time_t current_time = time(NULL);
 
-    // Cria as threads de leitura e escrita
-    pthread_create(&t_escritora, NULL, tfunc_escritora, NULL);
-    pthread_create(&t_leitora, NULL, tfunc_leitora, NULL);
+    // Verifica se a mensagem pode ser sobrescrita (lida por todas ou expirada)
+    if (buffer->read_counters[buffer->write_index] == 0 ||
+        difftime(current_time, buffer->timestamps[buffer->write_index]) > 10)
+    {
 
-    // Aguarda as threads terminarem
-    pthread_join(t_escritora, NULL);
-    pthread_join(t_leitora, NULL);
+        strncpy(buffer->messages[buffer->write_index], message, MAX_MSG_LENGTH);
+        buffer->read_counters[buffer->write_index] = buffer->active_instances; // Reseta o contador de leitura
+        buffer->timestamps[buffer->write_index] = current_time;                // Atualiza o timestamp
+        buffer->write_index = (buffer->write_index + 1) % MAX_MSG_COUNT;       // Atualiza o índice de escrita
+    }
 
-    // Fecha e remove os semáforos e a memória compartilhada
-    sem_close(sem_writer);
-    sem_close(sem_reader);
-    sem_unlink(NOME_SEMAFORO_WRITER);
-    sem_unlink(NOME_SEMAFORO_READER);
-    munmap(shared_mem, sizeof(chat_mem));
-    close(fd);
-    unlink(NOME_ARQUIVO);
+    sem_post(sem);
+}
+
+void consume_message(SharedBuffer *buffer, int message_index, sem_t *sem)
+{
+    sem_wait(sem);
+
+    // Lógica para ler a mensagem e processá-la
+    if (buffer->read_counters[message_index] > 0)
+    {
+        buffer->read_counters[message_index]--; // Marca a mensagem como lida por uma instância
+    }
+
+    sem_post(sem);
+}
+
+void *monitor_messages(void *arg)
+{
+    while (1)
+    {
+        sem_wait(sem);
+        // Lógica para verificar e processar novas mensagens
+        for (int i = 0; i < MAX_MSG_COUNT; i++)
+        {
+            if (shared_buffer->read_counters[i] > 0)
+            {
+                // Processa a mensagem i (exibe e consome)
+                consume_message(shared_buffer, i, sem);
+            }
+        }
+        sem_post(sem);
+        sleep(1); // Intervalo de verificação
+    }
+}
+
+int register_instance_id(char *username)
+{
+    printf("Verificando disponibilidade do nome. . .\n");
+    sem_wait(sem);
+    // Verifica se o nome de usuário já está em uso
+    for (int i = 0; i < MAX_INSTANCES - 1; i++)
+    {
+        if (strcmp(shared_buffer->usernames[i], username) == 0)
+        {
+            sem_post(sem);
+            return -2; // Indica que o nome de usuário já existe
+        }
+    }
+    printf("Usuário disponível!\nRegistrando . . .\n");
+
+    // Registra um novo usuário se não estiver em uso
+    for (int i = 0; i < MAX_INSTANCES - 1; i++)
+    {
+        if (shared_buffer->usernames[i][0] == '\0')
+        { // Verifica posição vazia
+            strncpy(shared_buffer->usernames[i], username, MAX_USERNAME_LENGTH);
+            shared_buffer->heartbeats[i] = time(NULL); // Inicializa o *heartbeat*
+            shared_buffer->active_instances++;
+            sem_post(sem);
+            return i; // Retorna o índice registrado
+        }
+        printf("Usuário online: %s\n", shared_buffer->usernames[i]);
+    }
+    sem_post(sem);
+    return -1; // Se a capacidade máxima foi atingida
+}
+
+void cleanup_instance()
+{
+    sem_wait(sem);
+    if (shared_buffer->active_instances > 0)
+    {
+        shared_buffer->active_instances--;
+    }
+    sem_post(sem);
+}
+
+void handle_sigint(int sig)
+{
+    printf("\nExecutando a limpeza...\n");
+
+    pthread_cancel(supervisor_tid);
+    pthread_cancel(heartbeat_tid);
+    unregister_instance();
+
+    cleanup_instance();
+    exit(0);
+}
+
+int main()
+{
+    int fd = open("/tmp/chat", O_RDWR | O_CREAT, 0744); // Leitura e Escrita | Existe ? Cria : Edita
+    if (fd == -1)
+    {
+        perror("Erro ao abrir o arquivo");
+        return 1;
+    }
+
+    if (ftruncate(fd, sizeof(SharedBuffer)) == -1)
+    {
+        perror("Erro ao ajustar o tamanho da memória compartilhada");
+        return 1;
+    }
+
+    shared_buffer = mmap(NULL, sizeof(SharedBuffer), PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+    if (shared_buffer == MAP_FAILED)
+    {
+        perror("Erro ao mapear a memória compartilhada");
+        return 1;
+    }
+
+    sem = sem_open(SEM_NAME, O_CREAT, 0666, 1);
+    if (sem == SEM_FAILED)
+    {
+        perror("Erro ao criar o semáforo");
+        return 1;
+    }
+    /*
+    printf("Testando\n");
+    sem_wait(sem);
+    printf("Adquirido!\n");
+    sem_post(sem);
+    printf("Liberado!\n");
+    */
+
+    char username[MAX_USERNAME_LENGTH];
+
+    do
+    {
+        printf("Digite seu nome de usuário: ");
+        scanf("%s", username);
+
+        instance_id = register_instance_id(username);
+        if (instance_id == -2)
+        {
+            printf("Nome de usuário já em uso. Por favor, digite outro.\n");
+        }
+        else if (instance_id == -1)
+        {
+            printf("Número máximo de instâncias atingido. Não é possível registrar um novo usuário.\n");
+            return 1;
+        }
+    } while (instance_id == -2);
+    printf("Registrado com sucesso!\n");
+
+    pthread_create(&supervisor_tid, NULL, supervisor_thread, NULL);
+    pthread_create(&heartbeat_tid, NULL, update_heartbeat, (void *)&instance_id);
+
+    signal(SIGINT, handle_sigint);
+
+    atexit(cleanup_instance); // chama quando o programa fecha
+
+    pthread_join(supervisor_tid, NULL);
+    pthread_join(heartbeat_tid, NULL);
+
+    sem_close(sem);
+    sem_unlink(SEM_NAME);
 
     return 0;
 }
