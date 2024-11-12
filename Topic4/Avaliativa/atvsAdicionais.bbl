@@ -1,0 +1,190 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global}
+    \entry{tanenbaum2021}{book}{}
+      \name{author}{2}{}{%
+        {{hash=2414455c999bc471f803cd14fdea939d}{%
+           family={Tanenbaum},
+           familyi={T\bibinitperiod},
+           given={Andrew\bibnamedelima S.},
+           giveni={A\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=02997b67b6ffe1ea8e813dd2f362f33d}{%
+           family={Bos},
+           familyi={B\bibinitperiod},
+           given={Herbert},
+           giveni={H\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Boston}%
+      }
+      \list{publisher}{1}{%
+        {Pearson}%
+      }
+      \strng{namehash}{da75650913b9d6ae1cb262f4e7389a5c}
+      \strng{fullhash}{da75650913b9d6ae1cb262f4e7389a5c}
+      \strng{bibnamehash}{da75650913b9d6ae1cb262f4e7389a5c}
+      \strng{authorbibnamehash}{da75650913b9d6ae1cb262f4e7389a5c}
+      \strng{authornamehash}{da75650913b9d6ae1cb262f4e7389a5c}
+      \strng{authorfullhash}{da75650913b9d6ae1cb262f4e7389a5c}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{4}
+      \field{title}{SISTEMAS OPERACIONAIS MODERNOS}
+      \field{year}{2021}
+    \endentry
+    \entry{escolaLBK2024}{online}{}
+      \name{author}{1}{}{%
+        {{hash=ab543088594700b9cc7c1b715a722939}{%
+           family={{Escola LBK}},
+           familyi={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{ab543088594700b9cc7c1b715a722939}
+      \strng{fullhash}{ab543088594700b9cc7c1b715a722939}
+      \strng{bibnamehash}{ab543088594700b9cc7c1b715a722939}
+      \strng{authorbibnamehash}{ab543088594700b9cc7c1b715a722939}
+      \strng{authornamehash}{ab543088594700b9cc7c1b715a722939}
+      \strng{authorfullhash}{ab543088594700b9cc7c1b715a722939}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Acesso em: 12 nov. 2024}
+      \field{title}{O que é Memória Virtual}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://escolalbk.com.br/glossario/o-que-e-memoria-virtual/
+      \endverb
+      \verb{url}
+      \verb https://escolalbk.com.br/glossario/o-que-e-memoria-virtual/
+      \endverb
+    \endentry
+    \entry{resumosLEIC}{online}{}
+      \name{author}{1}{}{%
+        {{hash=5239d480026465c6b4f85ca88fa29dd5}{%
+           family={{Resumos LEIC-A}},
+           familyi={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{5239d480026465c6b4f85ca88fa29dd5}
+      \strng{fullhash}{5239d480026465c6b4f85ca88fa29dd5}
+      \strng{bibnamehash}{5239d480026465c6b4f85ca88fa29dd5}
+      \strng{authorbibnamehash}{5239d480026465c6b4f85ca88fa29dd5}
+      \strng{authornamehash}{5239d480026465c6b4f85ca88fa29dd5}
+      \strng{authorfullhash}{5239d480026465c6b4f85ca88fa29dd5}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Acesso em: 12 nov. 2024}
+      \field{title}{Memória Virtual}
+      \verb{urlraw}
+      \verb https://resumos.leic.pt/oc/memoria-virtual/
+      \endverb
+      \verb{url}
+      \verb https://resumos.leic.pt/oc/memoria-virtual/
+      \endverb
+    \endentry
+    \entry{gomesAula18}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=356f163324f1ff3c41328f9df07dffcf}{%
+           family={Gomes},
+           familyi={G\bibinitperiod},
+           given={R.},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{356f163324f1ff3c41328f9df07dffcf}
+      \strng{fullhash}{356f163324f1ff3c41328f9df07dffcf}
+      \strng{bibnamehash}{356f163324f1ff3c41328f9df07dffcf}
+      \strng{authorbibnamehash}{356f163324f1ff3c41328f9df07dffcf}
+      \strng{authornamehash}{356f163324f1ff3c41328f9df07dffcf}
+      \strng{authorfullhash}{356f163324f1ff3c41328f9df07dffcf}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Acesso em: 12 nov. 2024}
+      \field{title}{Aula 18 - Sistemas Operacionais: Memória Virtual}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb http://www.inf.ufes.br/~rgomes/so_fichiers/aula18.pdf
+      \endverb
+      \verb{url}
+      \verb http://www.inf.ufes.br/~rgomes/so_fichiers/aula18.pdf
+      \endverb
+    \endentry
+    \entry{profMoraesGerenciamento}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=e076fc14819a05eaed29beb3c63c90d9}{%
+           family={Lima},
+           familyi={L\bibinitperiod},
+           given={Prof.\bibnamedelimi Clodoaldo\bibnamedelimb Ap.\bibnamedelimi Moraes},
+           giveni={P\bibinitperiod\bibinitdelim C\bibinitperiod\bibinitdelim A\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \strng{namehash}{e076fc14819a05eaed29beb3c63c90d9}
+      \strng{fullhash}{e076fc14819a05eaed29beb3c63c90d9}
+      \strng{bibnamehash}{e076fc14819a05eaed29beb3c63c90d9}
+      \strng{authorbibnamehash}{e076fc14819a05eaed29beb3c63c90d9}
+      \strng{authornamehash}{e076fc14819a05eaed29beb3c63c90d9}
+      \strng{authorfullhash}{e076fc14819a05eaed29beb3c63c90d9}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Acesso em: 12 nov. 2024}
+      \field{title}{Gerenciamento de Memória}
+      \field{year}{2012}
+      \verb{urlraw}
+      \verb https://thewaysx.wordpress.com/wp-content/uploads/2012/11/aula131.pdf
+      \endverb
+      \verb{url}
+      \verb https://thewaysx.wordpress.com/wp-content/uploads/2012/11/aula131.pdf
+      \endverb
+    \endentry
+    \entry{techtargetTLB}{online}{}
+      \name{author}{1}{}{%
+        {{hash=700f0e630e939fff4cff6be3fc518b34}{%
+           family={{TechTarget}},
+           familyi={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{700f0e630e939fff4cff6be3fc518b34}
+      \strng{fullhash}{700f0e630e939fff4cff6be3fc518b34}
+      \strng{bibnamehash}{700f0e630e939fff4cff6be3fc518b34}
+      \strng{authorbibnamehash}{700f0e630e939fff4cff6be3fc518b34}
+      \strng{authornamehash}{700f0e630e939fff4cff6be3fc518b34}
+      \strng{authorfullhash}{700f0e630e939fff4cff6be3fc518b34}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Acesso em: 12 nov. 2024}
+      \field{title}{Translation Lookaside Buffer (TLB)}
+      \verb{urlraw}
+      \verb https://www.techtarget.com/whatis/definition/translation-look-aside-buffer-TLB
+      \endverb
+      \verb{url}
+      \verb https://www.techtarget.com/whatis/definition/translation-look-aside-buffer-TLB
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
