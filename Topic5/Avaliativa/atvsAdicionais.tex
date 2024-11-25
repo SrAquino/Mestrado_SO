@@ -135,7 +135,7 @@ Se ocorrer uma falta de página neste momento, o algoritmo NRU escolheria aleato
 
 \textbf{Pergunta:} 3) Considere o algoritmo de substituição de página “Least Recently Used” (LRU) implementado com um hardware que mantém uma matriz de n x n bits. No exemplo, n será de 4 bits. Agora imagine a seguinte ordem de referência: 3 3 2 1 2 3 0. Mostre a sequência de matrizes de acesso do LRU para a ordem dada. Qual página que seria escolhida para substituição, se fosse necessário retirar uma?  \newline
 
-\textbf{Resposta: }O algoritmo de substituição de página Least Recently Used (LRU) pode ser implementado com uma matriz de bits n×nn×n, onde nn é o número de páginas na memória. Essa matriz é atualizada a cada acesso, de forma que a linha correspondente à página acessada tenha seus bits ajustados.
+\textbf{Resposta: }O algoritmo de substituição de página Least Recently Used (LRU) pode ser implementado com uma matriz de bits n×n, onde n é o número de páginas na memória. Essa matriz é atualizada a cada acesso, de forma que a linha correspondente à página acessada tenha seus bits ajustados.
 
 \begin{itemize}
     \item Cada elemento da matriz $M[i][j]$ representa se a página $i$ foi acessada mais recentemente que a página $j$. Se $M[i][j]=1$, significa que $i$ foi acessada mais recentemente que $j$.
@@ -219,23 +219,34 @@ Para identificar a página a ser substituída, verificamos a linha com o menor v
 
 \textbf{Pergunta:} 4) O algoritmo PFF (Page Fault Frequency – Frequência de Falta de Página) é utilizado para controlar o tamanho do conjunto de páginas alocadas na memória RAM de um determinado processo, quando um algoritmo de alocação global é utilizado. Explique, com exemplos, como funciona este algoritmo.  \newline
 
-\textbf{Resposta:}
+\textbf{Resposta:} O objetivo do algoritmo é manter a frequência de faltas de página de cada processo dentro de uma faixa aceitável, evitando a ultrapaginação.
+
+O sistema operacional mede a frequência de faltas de página de cada processo. Isso pode ser feito contando o número de faltas por segundo, talvez usando uma média móvel para suavizar as flutuações \textcite[p. 155]{tanenbaum2021}. Então o algoritmo PFF define dois limiares de frequência de faltas de página: um limiar superior (A) e um limiar inferior (B). 
+  
+\begin{itemize}
+  \item Limiar Superior (A): Se a frequência de faltas de um processo exceder o limiar superior, significa que o processo está sofrendo muitas faltas de página, provavelmente porque não tem quadros de página suficientes.
+  \item Limiar Inferior (B): Se a frequência de faltas de um processo estiver abaixo do limiar inferior, significa que o processo tem quadros de página em excesso.
+\end{itemize}
+
+Com base na frequência de faltas, o algoritmo PFF ajusta o número de quadros de página alocados ao processo. Se a frequência de faltas estiver acima do limiar A, o sistema operacional aloca mais quadros de página ao processo para reduzir a frequência de faltas. Se a frequência de faltas estiver abaixo do limiar B, o sistema operacional remove alguns quadros de página do processo para liberar memória para outros processos.
 
 \textbf{Pergunta:} 5) Explique como funciona a tradução de um endereço MULTICS para o endereço físico da máquina. O MULTICS trabalha com segmentação com paginação. Explique como funciona o descritor de segmento juntamente com as tabelas de páginas.  \newline
 
-\textbf{Resposta:} 
+\textbf{Resposta:} Para traduzir um endereço MULTICS para o endereço físico da máquina, primeiramente, usando o número do segmento do endereço virtual, o sistema acessa o descritor de segmento correspondente \textcite[p. 169]{tanenbaum2021}. O descritor é verificado para determinar se o segmento está na memória principal.Se não estiver, ocorre uma falta de segmento, e o sistema operacional precisa carregar o segmento da memória secundária. Se o segmento estiver presente, o descritor fornece o ponteiro para a tabela de páginas do segmento \textcite[p. 170]{tanenbaum2021}. O número da página virtual é usado como índice na tabela de páginas para encontrar a entrada correspondente. Esta entrada contém o número do quadro de página física onde a página reside.  O número do quadro de página, obtido da tabela de páginas, é combinado com o deslocamento do endereço virtual para formar o endereço físico completo. Finalmente, o endereço físico é usado para acessar a localização da palavra desejada na memória principal \textcite[p. 171]{tanenbaum2021}.
+
+O MULTICS utiliza uma TLB (Translation Lookaside Buffer) para acelerar o processo de tradução de endereços. A TLB armazena as traduções de endereços mais recentes, permitindo que o sistema evite o acesso à tabela de páginas na maioria das vezes \textcite[p. 172]{tanenbaum2021}.
+
 
 \section{Desenvolver um programa}
 
 \subsection{}
-\textbf{Enunciado:} Nos dias atuais, sistemas com múltiplos cores dentro do processador estão em toda a parte. No Linux, podemos determinar a afinidade de uma determinada thread a um dado core com a função: sched-setaffinity. Faça um programa que gere 4 vertores de tamanho n com números aleatórios. Cada vetor deve ser ordenado por uma thread diferente. As threads devem ser divididas entre os cores existentes e cada thread deve sempre ser executada no mesmo core. Você deve verificar se a afinidade da thread foi escolhida corretamente com a função sched-getaffinity. Além disso, o comando top deve
-ser utilizado para a verificação do core que executa cada thread. \newline
+\textbf{Enunciado:} Nos dias atuais, sistemas com múltiplos cores dentro do processador estão em toda a parte. No Linux, podemos determinar a afinidade de uma determinada thread a um dado core com a função: sched-setaffinity. Faça um programa que gere 4 vertores de tamanho n com números aleatórios. Cada vetor deve ser ordenado por uma thread diferente. As threads devem ser divididas entre os cores existentes e cada thread deve sempre ser executada no mesmo core. Você deve verificar se a afinidade da thread foi escolhida corretamente com a função sched-getaffinity. Além disso, o comando top deve ser utilizado para a verificação do core que executa cada thread. \newline
 
 \subsection{Código}
 \label{sub-sec-cod}
 %\lstinputlisting[language=C]{Codes/atv1_sharedmem.c}
 \subsection{Testes e Resultados}
-Como resultado da execução do código exibido na subceção \ref{sub-sec-cod}, obtivemos a saída ilustrada na figura \ref{fig:exec}. É importante ressaltar que o programa pode apresentar um problema, pois não há verificação de produzir apenas quando há espaço, ou seja, o buffer pode acabar sendo subscrito pela função de produzir, antes da função de consumir. 
+Como resultado da execução do código exibido na subceção \ref{sub-sec-cod}, obtivemos a saída ilustrada na figura \ref{fig:exec}.
 
 \begin{figure}[ht]
     \centering
@@ -245,6 +256,5 @@ Como resultado da execução do código exibido na subceção \ref{sub-sec-cod},
 \end{figure}
 
 \printbibliography % Imprime a lista de referências
-
 
 \end{document}
