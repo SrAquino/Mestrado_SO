@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.10.15)  3 JAN 2025 13:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.10.15)  3 JAN 2025 14:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/home/douglas/Documentos/Projetos/Disciplinas/Mestrado_SO/Topic5/Avaliativa/atvsAdicionais.tex
-(/home/douglas/Documentos/Projetos/Disciplinas/Mestrado_SO/Topic5/Avaliativa/atvsAdicionais.tex
+**/home/douglas/Documentos/Projetos/Disciplinas/Mestrado_SO/Topic6/Avaliativa/Templates/atvsAdicionais.tex
+(/home/douglas/Documentos/Projetos/Disciplinas/Mestrado_SO/Topic6/Avaliativa/Templates/atvsAdicionais.tex
 LaTeX2e <2021-11-15> patch level 1
 L3 programming layer <2022-01-21> (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
@@ -692,21 +692,32 @@ Package biblatex Info: Automatic encoding selection.
 \openout3 = `atvsAdicionais.bcf'.
 
 Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file 'atvsAdicionais.bbl' found.
- (./atvsAdicionais.bbl)
+Package biblatex Info: ... file 'atvsAdicionais.bbl' not found.
+
+No file atvsAdicionais.bbl.
 Package biblatex Info: Reference section=0 on input line 54.
 Package biblatex Info: Reference segment=0 on input line 54.
-<../../Topic1/Avaliativo/Imagens/Logo UFLA - Colorida chapada.png, id=4, 430.9701pt x 175.1343pt>
-File: ../../Topic1/Avaliativo/Imagens/Logo UFLA - Colorida chapada.png Graphic file (type png)
-<use ../../Topic1/Avaliativo/Imagens/Logo UFLA - Colorida chapada.png>
-Package pdftex.def Info: ../../Topic1/Avaliativo/Imagens/Logo UFLA - Colorida chapada.png  used on input line 59.
-(pdftex.def)             Requested size: 141.61081pt x 57.54596pt.
- [1
+
+LaTeX Warning: File `../../Topic1/Avaliativo/Imagens/Logo UFLA - Colorida chapada.png' not found on input line 59.
+
+
+/home/douglas/Documentos/Projetos/Disciplinas/Mestrado_SO/Topic6/Avaliativa/Templates/atvsAdicionais.tex:59: Package pdftex.def Error: File `../../Topic1/Avaliativo/Imagens/Logo UFLA - Colorida chapada.png' not found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.59 .../Imagens/Logo UFLA - Colorida chapada.png}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+[1
 
 
 
 pdfTeX warning: pdflatex (file pdftex.map): cannot open font map file
- <../../Topic1/Avaliativo/Imagens/Logo UFLA - Colorida chapada.png>] (./atvsAdicionais.toc)
+]
 \tf@toc=\write4
 \openout4 = `atvsAdicionais.toc'.
 
@@ -724,64 +735,64 @@ Underfull \hbox (badness 10000) in paragraph at lines 94--95
 
  []
 
-[2]
-Underfull \hbox (badness 10000) in paragraph at lines 134--135
 
- []
-
-[3]
-Underfull \hbox (badness 10000) in paragraph at lines 218--219
+Underfull \hbox (badness 10000) in paragraph at lines 100--101
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 225--226
+Underfull \hbox (badness 10000) in paragraph at lines 106--107
 
  []
 
-[4]
-Underfull \hbox (badness 10000) in paragraph at lines 243--245
+
+Underfull \hbox (badness 10000) in paragraph at lines 112--113
 
  []
 
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 248.
-(./Codes/atv6T5.c
-LaTeX Font Info:    Trying to load font information for OML+cmr on input line 2.
- (/usr/share/texlive/texmf-dist/tex/latex/base/omlcmr.fd
-File: omlcmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 2.
-LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 13.
- (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 13.
- [5] [6] [7])
-<./Images/saída.png, id=221, 736.7525pt x 715.67375pt>
-File: ./Images/saída.png Graphic file (type png)
-<use ./Images/saída.png>
-Package pdftex.def Info: ./Images/saída.png  used on input line 255.
-(pdftex.def)             Requested size: 472.03123pt x 458.52104pt.
- [8 <./Images/saída.png>] [9] (./atvsAdicionais.aux)
+
+Underfull \hbox (badness 10000) in paragraph at lines 120--121
+
+ []
+
+
+LaTeX Warning: Reference `sub-sec-cod' on page 2 undefined on input line 127.
+
+
+LaTeX Warning: Reference `fig:exec' on page 2 undefined on input line 127.
+
+
+LaTeX Warning: Empty bibliography on input line 136.
+
+[2] (./atvsAdicionais.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package biblatex Warning: Please (re)run Biber on the file:
+(biblatex)                atvsAdicionais
+(biblatex)                and rerun LaTeX afterwards.
+
 Package logreq Info: Writing requests to 'atvsAdicionais.run.xml'.
 \openout1 = `atvsAdicionais.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 21610 strings out of 480247
- 368330 string characters out of 5896150
- 1402424 words of memory out of 5000000
- 39148 multiletter control sequences out of 15000+600000
- 472518 words of font info for 39 fonts, out of 8000000 for 9000
+ 20783 strings out of 480247
+ 358562 string characters out of 5896150
+ 1090074 words of memory out of 5000000
+ 38476 multiletter control sequences out of 15000+600000
+ 471551 words of font info for 36 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 74i,10n,77p,1177b,2030s stack positions out of 5000i,500n,10000p,200000b,80000s
- </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmti10.pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmr5.600pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmr7.pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmex10.pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmmi7.pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmsy10.pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmmi10.pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmbx12.600pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmr10.pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmbx10.pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmbx12.720pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmr12.pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmbx12.1037pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmr12.720pk>
-Output written on atvsAdicionais.pdf (10 pages, 300113 bytes).
+ 74i,5n,77p,1187b,1655s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmbx10.pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmbx12.600pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmr10.pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmbx12.720pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmr12.pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmbx12.1037pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmr12.720pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmtt10.600pk>
+Output written on atvsAdicionais.pdf (3 pages, 62013 bytes).
 PDF statistics:
- 670 PDF objects out of 1000 (max. 8388607)
- 337 compressed objects within 4 object streams
- 165 named destinations out of 1000 (max. 500000)
- 99 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 297 PDF objects out of 1000 (max. 8388607)
+ 96 compressed objects within 1 object stream
+ 16 named destinations out of 1000 (max. 500000)
+ 89 words of extra memory for PDF output out of 10000 (max. 10000000)
 

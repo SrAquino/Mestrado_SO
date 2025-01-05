@@ -1,0 +1,9 @@
+[0] Config.pm:307> INFO - This is Biber 2.17
+[0] Config.pm:310> INFO - Logfile is 'atvsAdicionais.blg'
+[63] biber:340> INFO - === sex jan  3, 2025, 14:04:09
+[73] Biber.pm:418> INFO - Reading 'atvsAdicionais.bcf'
+[119] Biber.pm:972> INFO - Found 0 citekeys in bib section 0
+[129] bbl.pm:654> INFO - Writing 'atvsAdicionais.bbl' with encoding 'UTF-8'
+[129] bbl.pm:757> INFO - Output to atvsAdicionais.bbl
+[129] Biber.pm:130> WARN - The file 'atvsAdicionais.bcf' does not contain any citations!
+[129] Biber.pm:132> INFO - WARNINGS: 1

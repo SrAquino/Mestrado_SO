@@ -89,7 +89,6 @@ Este documento tem como objetivo apresentar o desenvolvimento das atividades ava
 
 \textbf{Resposta:}  \textcite[p. 144]{tanenbaum2021} dizem que a criação de uma ferramenta para analisar programas e prever o uso futuro de páginas, com o objetivo de implementar o algoritmo ótimo de substituição de páginas, é teoricamente possível, porém impraticável em sistemas reais. O algoritmo ótimo de substituição de página postula que, em uma falta de página, a página que levará mais tempo para ser referenciada novamente deve ser removida da memória. Este algoritmo levaria ao menor número possível de faltas de páginas, mas seu problema reside na impossibilidade de prever com precisão quando cada página será utilizada no futuro.Embora seja impossível prever o futuro uso das páginas em um sistema em tempo real, o autor sugere que é possível simular o algoritmo ótimo em um ambiente controlado.
 
-
 \subsection{Not Recently Used}
 
 \textbf{Pergunta:} 2) Explique o algoritmo de substituição de páginas Not Recently Used (não usada recentemente), apresentando um exemplo. \newline
@@ -130,7 +129,6 @@ Imagine um sistema com 4 páginas na memória e a seguinte configuração de bit
 
 Se ocorrer uma falta de página neste momento, o algoritmo NRU escolheria aleatoriamente uma página da Classe 0. No caso, a única opção seria a página 3. Após a remoção da página 3, a nova página seria carregada em seu lugar, e seus bits R e M seriam inicializados de acordo com o estado da página. O algoritmo NRU é fácil de entender e implementar, e oferece um desempenho razoável, embora não seja ótimo.
 
-
 \subsection{Least Recently Used}
 
 \textbf{Pergunta:} 3) Considere o algoritmo de substituição de página “Least Recently Used” (LRU) implementado com um hardware que mantém uma matriz de n x n bits. No exemplo, n será de 4 bits. Agora imagine a seguinte ordem de referência: 3 3 2 1 2 3 0. Mostre a sequência de matrizes de acesso do LRU para a ordem dada. Qual página que seria escolhida para substituição, se fosse necessário retirar uma?  \newline
@@ -142,7 +140,7 @@ Se ocorrer uma falta de página neste momento, o algoritmo NRU escolheria aleato
     \item Quando uma página é acessada, a linha correspondente a essa página é definida com $1$ em todas as suas posições, e a coluna correspondente a essa página é definida com $0$.
 \end{itemize}
 
-Considerando $n=4$ (páginas 0, 1, 2 e 3), a matriz de acesso $M$ é uma matriz $4×4$ inicialmente zerada. Dada a ordem de referência $3, 3, 2, 1, 2, 3, 0$, as matrizes são atualizadas conforme descrito a seguir:
+Considerando $n=4$ (páginas 0, 1, 2 e 3), a matriz de acesso $M$ é uma matriz $4 \times 4$ inicialmente zerada. Dada a ordem de referência $3, 3, 2, 1, 2, 3, 0$, as matrizes são atualizadas conforme descrito a seguir:
 
 
 \[M_{inicial} =
@@ -219,11 +217,25 @@ Para identificar a página a ser substituída, verificamos a linha com o menor v
 
 \textbf{Pergunta:} 4) O algoritmo PFF (Page Fault Frequency – Frequência de Falta de Página) é utilizado para controlar o tamanho do conjunto de páginas alocadas na memória RAM de um determinado processo, quando um algoritmo de alocação global é utilizado. Explique, com exemplos, como funciona este algoritmo.  \newline
 
-\textbf{Resposta:}
+\textbf{Resposta:} Imagine um processo com uma taxa de faltas de página de 10 faltas por segundo. Se o limite superior aceitável for de 5 faltas por segundo, o PFF alocará mais quadros de página para o processo, na tentativa de reduzir a taxa de faltas. Se, por outro lado, a taxa de faltas de página fosse de 1 falta por segundo, e o limite inferior aceitável fosse de 2 faltas por segundo, o PFF removeria alguns quadros de página do processo, liberando memória para outros processos.
+O PFF é baseado na observação de que, para a maioria dos algoritmos de substituição de página, como o LRU, a taxa de faltas de página diminui à medida que mais páginas são alocadas ao processo. No entanto, é importante observar que o PFF não especifica qual página deve ser substituída em caso de falta de página, ele apenas controla o tamanho do conjunto de alocação de cada processo.
 
-\textbf{Pergunta:} 5) Explique como funciona a tradução de um endereço MULTICS para o endereço físico da máquina. O MULTICS trabalha com segmentação com paginação. Explique como funciona o descritor de segmento juntamente com as tabelas de páginas.  \newline
+\subsection{Tradução de endereço MULTICS}
 
-\textbf{Resposta:} 
+\textbf{Pergunta:} 5) Explique como funciona a tradução de um endereço MULTICS para o endereço físico da máquina. O MULTICS trabalha com segmentação com paginação. Explique como funciona o descritor de segmento juntamente com as tabelas de páginas. \textcite[p. 170]{tanenbaum2021}   \newline
+
+\textbf{Resposta:} O MULTICS implementa um sistema de memória virtual que combina segmentação com paginação, o que significa que o espaço de endereço virtual é dividido em segmentos, e cada segmento é dividido em páginas. Esse sistema oferece as vantagens da segmentação, como a facilidade de programação, modularidade, proteção e compartilhamento, com as vantagens da paginação, como o tamanho uniforme da página e a capacidade de manter apenas as páginas necessárias na memória.
+A tradução de um endereço MULTICS para um endereço físico da máquina envolve as seguintes etapas:
+
+\begin{itemize}
+  \item O endereço virtual MULTICS é composto por duas partes: o número do segmento e o endereço dentro do segmento.
+  \item O número do segmento é usado como um índice na tabela de segmentos do programa. Cada entrada na tabela de segmentos corresponde a um descritor de segmento.
+  \item O descritor de segmento contém informações sobre o segmento, incluindo um ponteiro para sua tabela de páginas, o tamanho do segmento, bits de proteção e outros itens. Se o segmento estiver na memória, o descritor conterá um ponteiro de 18 bits para a tabela de páginas do segmento.
+  \item O endereço dentro do segmento é dividido em um número de página e um deslocamento dentro da página.
+  \item O número da página é usado como um índice na tabela de páginas do segmento, que foi localizada através do descritor de segmento.
+  \item A entrada da tabela de páginas contém o endereço físico do quadro de página na memória principal.
+  \item O deslocamento é adicionado ao endereço do quadro de página para gerar o endereço físico da palavra na memória principal.
+\end{itemize}
 
 \section{Desenvolver um programa}
 
@@ -233,13 +245,14 @@ ser utilizado para a verificação do core que executa cada thread. \newline
 
 \subsection{Código}
 \label{sub-sec-cod}
-%\lstinputlisting[language=C]{Codes/atv1_sharedmem.c}
+\lstinputlisting[language=C]{Codes/atv6T5.c}
+
 \subsection{Testes e Resultados}
-Como resultado da execução do código exibido na subceção \ref{sub-sec-cod}, obtivemos a saída ilustrada na figura \ref{fig:exec}. É importante ressaltar que o programa pode apresentar um problema, pois não há verificação de produzir apenas quando há espaço, ou seja, o buffer pode acabar sendo subscrito pela função de produzir, antes da função de consumir. 
+Como resultado da execução do código exibido na subceção \ref{sub-sec-cod}, obtivemos a saída ilustrada na figura \ref{fig:exec}. O que mostrou que a afinidade com o core funcionou corretamente, já que salvamos a afinidade na estrutura, e posteriormente verificamos em qual core a ordenação está sendo realizada, e todos os outputs mostraram que o core corresponde com o esperado.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=1\textwidth]{./Images/image.png}
+    \includegraphics[width=1\textwidth]{./Images/saída.png}
     \caption{Resultado da execução do programa}
     \label{fig:exec}
 \end{figure}

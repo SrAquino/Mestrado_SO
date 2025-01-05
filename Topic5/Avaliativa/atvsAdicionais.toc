@@ -6,7 +6,8 @@
 \contentsline {paragraph}{Exemplo do Algoritmo NRU\newline }{3}{section*.2}%
 \contentsline {subsection}{\numberline {2.3}Least Recently Used}{3}{subsection.2.3}%
 \contentsline {subsection}{\numberline {2.4}Page Fault Frequency}{4}{subsection.2.4}%
-\contentsline {section}{\numberline {3}Desenvolver um programa}{4}{section.3}%
-\contentsline {subsection}{\numberline {3.1}}{4}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Código}{4}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Testes e Resultados}{4}{subsection.3.3}%
+\contentsline {subsection}{\numberline {2.5}Tradução de endereço MULTICS}{4}{subsection.2.5}%
+\contentsline {section}{\numberline {3}Desenvolver um programa}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}}{5}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Código}{5}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Testes e Resultados}{8}{subsection.3.3}%

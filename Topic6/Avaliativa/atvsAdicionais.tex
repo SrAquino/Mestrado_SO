@@ -1,0 +1,157 @@
+\documentclass{article}
+\usepackage{bookmark}
+
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}  % Define o idioma para português do Brasil
+\usepackage{csquotes}       % Para lidar com aspas de maneira apropriada com babel
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{xcolor}
+
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{listings}
+% Configuração do estilo de código
+\lstset{
+  language=C,
+  %basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  stringstyle=\color{red},
+  breaklines=true,
+  frame=single,
+  numbers=left,
+  numberstyle=\tiny,
+  numbersep=5pt,
+  showstringspaces=false,
+}
+
+
+\usepackage{graphicx}       % Pacote para inserção de imagens
+
+\usepackage{hyperref}       % Pacote para links clicáveis
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+}
+
+\usepackage{enumitem}       % Pacote para personalização de listas
+
+\usepackage{geometry}       % Pacote para ajustar margens
+
+\geometry{                  % Definindo margens personalizadas (em centímetros)
+  left=2.5cm,  % Margem esquerda
+  right=2.5cm, % Margem direita
+  top=2.5cm,   % Margem superior
+  bottom=2.5cm % Margem inferior
+}
+
+\usepackage[backend=biber,style=ieee]{biblatex}     % Estilo ieee para bibliografia numerada
+\addbibresource{ref.bib}                            % Arquivo .bib
+
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    % Cabeçalho personalizado
+    \includegraphics[width=0.3\textwidth]{../../Topic1/Avaliativo/Imagens/Logo UFLA - Colorida chapada.png}
+
+    \vspace*{2cm} % Espaçamento vertical antes do cabeçalho
+    \Large
+    Universidade Federal de Lavras\\
+    PPGCC\\
+    PCC508 – Sistemas Operacionais\\
+    
+    \vspace{2cm} % Espaço entre o cabeçalho e o título
+    \huge % Define o tamanho da fonte do título
+    \textbf{Tópico 6 Lista Avaliativa}
+    
+    \vfill % Adiciona um espaçamento flexível antes do rodapé (opcional)
+    
+    % Opcionalmente, você pode incluir seu nome e a data aqui
+    \large
+    Douglas Aquino T. Mendes\\
+    \today % Insere a data atual
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{Introdução}
+Este documento tem como objetivo apresentar o desenvolvimento das atividades avaliativas para o tópico 6 da disciplina de Sistemas Operacionais, focando na implementação de códigos em linguagem C. Serão apresentadas as questões, a resolução, os códigos desenvolvidos, seguidos de uma explicação sobre sua lógica de funcionamento.
+
+\section{Questões}
+
+\subsection{Pergunta 1}
+\textbf{Pergunta:} 1) Explique como nomes longos de arquivos podem ser manipulados em um diretórios\newline
+
+\textbf{Resposta:}  
+
+\subsection{2}
+
+\textbf{Pergunta:} 2) Como funciona o Journaling em um sistema de arquivos? Explique.\newline
+
+\textbf{Resposta:}  
+
+\subsection{3}
+
+\textbf{Pergunta:} 3) Explique como funciona a alocação de blocos de arquivos baseadas em Inodes.  \newline
+
+\textbf{Resposta: }
+
+\subsection{4}
+
+\textbf{Pergunta:} 4) Explique como funciona uma tabela FAT (File Allocation Table). \newline
+
+\textbf{Resposta:} 
+
+\subsection{5}
+
+\textbf{Pergunta:} 5) Quando um aplicação necessita de um controle mais aprimorado sobre as permissões associadas a um determinado arquivo, as Access Control Lists (ACL) podem ser utilizadas para isso. Descrever uma visão geral de como as ACLs funcionam.\newline
+
+\textbf{Resposta:} 
+
+\section{Desenvolver um programa}
+
+\subsection{Enunciado 6}
+
+\textbf{Enunciado:}  A chamada statvfs(…) é utilizada para obter-se informações sobre um sistema de arquivos montado. Faça um programa que receba como parâmetro o caminho de um sistema de arquivos e apresente as informações obtidas através desta chamada.\newline
+
+\subsubsection{Código}
+\label{sub-sec-cod}
+%\lstinputlisting[language=C]{Codes/atv6T5.c}
+
+\subsubsection{Testes e Resultados}
+Como resultado da execução do código exibido na subceção \ref{sub-sec-cod}, obtivemos a saída ilustrada na figura \ref{fig:exec}. 
+
+\begin{figure}[ht]
+    \centering
+    %\includegraphics[width=1\textwidth]{./Images/saída.png}
+    \caption{Resultado da execução do programa}
+    \label{fig:exec}
+\end{figure}
+
+\subsection{Enunciado 7}
+
+\textbf{Enunciado:}   Criar dois programas. O primeiro cria um arquivo binário, com 30 ints, realizando uma contagem (1,2,3,4...30). Isso significa que os 30 ints devem ser armazenados em sequência no arquivo. O segundo programa deve utilizar a função readv para fazer a leitura simultânea em múltiplos buffers de 8 números do arquivo gerado pelo primeiro programa. Essa leitura deve ser feita somente com uma instrução readv. Os números a serem lidos devem ser a partir do décimo armazenado (décimo no buffer 1, décimo primeiro no buffer 2, e assim por diante). Imprimir os números na tela. Não esqueça que cada int tem o seu tamanho em bytes fixo.\newline
+
+\subsubsection{Código}
+\label{sub-sec-cod}
+%\lstinputlisting[language=C]{Codes/atv6T5.c}
+
+\subsubsection{Testes e Resultados}
+Como resultado da execução do código exibido na subceção \ref{sub-sec-cod}, obtivemos a saída ilustrada na figura \ref{fig:exec}. 
+
+\begin{figure}[ht]
+    \centering
+    %\includegraphics[width=1\textwidth]{./Images/saída.png}
+    \caption{Resultado da execução do programa}
+    \label{fig:exec}
+\end{figure}
+
+\printbibliography % Imprime a lista de referências
+
+
+\end{document}
