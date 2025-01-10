@@ -85,9 +85,9 @@ Este documento tem como objetivo apresentar o desenvolvimento das atividades ava
 \section{Questões}
 
 \subsection{Pergunta 1}
-\textbf{Pergunta:} 1) Explique como nomes longos de arquivos podem ser manipulados em um diretórios\newline
+\textbf{Pergunta:} 1) Explique como nomes longos de arquivos podem ser manipulados em diretórios\newline
 
-\textbf{Resposta:}  
+\textbf{Resposta:} Uma opção é manter os nomes dos arquivos em um heap no final de cada diretório. Cada entrada do diretório contém então um ponteiro para o nome do arquivo no heap. Essa abordagem evita a fragmentação e garante que uma nova entrada de arquivo sempre caiba no diretório. No entanto, o heap precisa ser gerenciado e podem ocorrer falhas de página ao processar nomes de arquivos. \textcite[p. 199]{tanenbaum2021}. 
 
 \subsection{2}
 

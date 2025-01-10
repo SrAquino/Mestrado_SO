@@ -8,8 +8,8 @@
 \contentsline {subsection}{\numberline {2.5}5}{2}{subsection.2.5}%
 \contentsline {section}{\numberline {3}Desenvolver um programa}{2}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Enunciado 6}{2}{subsection.3.1}%
-\contentsline {subsubsection}{\numberline {3.1.1}Código}{2}{subsubsection.3.1.1}%
-\contentsline {subsubsection}{\numberline {3.1.2}Testes e Resultados}{2}{subsubsection.3.1.2}%
+\contentsline {subsubsection}{\numberline {3.1.1}Código}{3}{subsubsection.3.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.2}Testes e Resultados}{3}{subsubsection.3.1.2}%
 \contentsline {subsection}{\numberline {3.2}Enunciado 7}{3}{subsection.3.2}%
 \contentsline {subsubsection}{\numberline {3.2.1}Código}{3}{subsubsection.3.2.1}%
 \contentsline {subsubsection}{\numberline {3.2.2}Testes e Resultados}{3}{subsubsection.3.2.2}%

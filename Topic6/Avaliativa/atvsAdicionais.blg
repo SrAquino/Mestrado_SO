@@ -1,9 +1,15 @@
 [0] Config.pm:307> INFO - This is Biber 2.17
 [0] Config.pm:310> INFO - Logfile is 'atvsAdicionais.blg'
-[63] biber:340> INFO - === sex jan  3, 2025, 14:04:09
-[73] Biber.pm:418> INFO - Reading 'atvsAdicionais.bcf'
-[119] Biber.pm:972> INFO - Found 0 citekeys in bib section 0
-[129] bbl.pm:654> INFO - Writing 'atvsAdicionais.bbl' with encoding 'UTF-8'
-[129] bbl.pm:757> INFO - Output to atvsAdicionais.bbl
-[129] Biber.pm:130> WARN - The file 'atvsAdicionais.bcf' does not contain any citations!
-[129] Biber.pm:132> INFO - WARNINGS: 1
+[60] biber:340> INFO - === sex jan 10, 2025, 14:29:30
+[71] Biber.pm:418> INFO - Reading 'atvsAdicionais.bcf'
+[118] Biber.pm:972> INFO - Found 1 citekeys in bib section 0
+[129] Biber.pm:4383> INFO - Processing section 0
+[136] Biber.pm:4574> INFO - Looking for bibtex file 'ref.bib' for section 0
+[137] bibtex.pm:1713> INFO - LaTeX decoding ...
+[139] bibtex.pm:1518> INFO - Found BibTeX data source 'ref.bib'
+[169] UCollate.pm:68> INFO - Overriding locale 'pt-BR' defaults 'variable = shifted' with 'variable = non-ignorable'
+[169] UCollate.pm:68> INFO - Overriding locale 'pt-BR' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[169] Biber.pm:4203> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'pt-BR'
+[169] Biber.pm:4209> INFO - No sort tailoring available for locale 'pt-BR'
+[170] bbl.pm:654> INFO - Writing 'atvsAdicionais.bbl' with encoding 'UTF-8'
+[171] bbl.pm:757> INFO - Output to atvsAdicionais.bbl

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.10.15)  3 JAN 2025 14:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.10.15)  10 JAN 2025 14:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -751,14 +751,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 120--121
 
  []
 
-
+[2]
 Underfull \hbox (badness 10000) in paragraph at lines 138--139
 
  []
-
-[2]
-
-LaTeX Warning: Empty bibliography on input line 154.
 
 [3] (./atvsAdicionais.aux)
 
@@ -769,18 +765,18 @@ Package logreq Info: Writing requests to 'atvsAdicionais.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 20763 strings out of 480247
- 356860 string characters out of 5896150
- 1093350 words of memory out of 5000000
- 38460 multiletter control sequences out of 15000+600000
- 471837 words of font info for 37 fonts, out of 8000000 for 9000
+ 20985 strings out of 480247
+ 361338 string characters out of 5896150
+ 1093410 words of memory out of 5000000
+ 38678 multiletter control sequences out of 15000+600000
+ 472518 words of font info for 39 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  74i,5n,77p,1177b,1692s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmbx12.600pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmr10.pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmbx10.pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmbx12.720pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmr12.pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmbx12.1037pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmr12.720pk>
-Output written on atvsAdicionais.pdf (4 pages, 161146 bytes).
+ </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmti10.pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmbx12.600pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmr10.pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmbx10.pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmbx12.720pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmr12.pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmbx12.1037pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmr12.720pk>
+Output written on atvsAdicionais.pdf (4 pages, 168617 bytes).
 PDF statistics:
- 341 PDF objects out of 1000 (max. 8388607)
- 128 compressed objects within 2 object streams
- 21 named destinations out of 1000 (max. 500000)
+ 374 PDF objects out of 1000 (max. 8388607)
+ 139 compressed objects within 2 object streams
+ 23 named destinations out of 1000 (max. 500000)
  118 words of extra memory for PDF output out of 10000 (max. 10000000)
 
