@@ -1,9 +1,0 @@
-\babel@toc {brazil}{}\relax 
-\contentsline {section}{\numberline {1}Perguntas}{2}{section.1}%
-\contentsline {subsection}{\numberline {1.1}Condições para um processo mudar o estado}{2}{subsection.1.1}%
-\contentsline {subsection}{\numberline {1.2}Principais informações armazenadas na entrada de um processo}{2}{subsection.1.2}%
-\contentsline {subsection}{\numberline {1.3}Diferença entre processos e threads}{3}{subsection.1.3}%
-\contentsline {subsection}{\numberline {1.4}Threads implementadas dentro do kernel ou como uma biblioteca}{3}{subsection.1.4}%
-\contentsline {section}{\numberline {2}Desenvolver um programa}{4}{section.2}%
-\contentsline {subsection}{\numberline {2.1}05) Imprimir na tela os pids recebidos}{4}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}06) Lê uma imagem de um arquivo}{4}{subsection.2.2}%
