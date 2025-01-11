@@ -1,11 +1,11 @@
 # Fdb version 3
-["biber atvsAdicionais"] 1735923355 "atvsAdicionais.bcf" "atvsAdicionais.bbl" "atvsAdicionais" 1735923524
-  "atvsAdicionais.bcf" 1735923524 106657 0d94329f1e043fd04d037d712adf96fc "pdflatex"
+["biber atvsAdicionais"] 1736533979 "atvsAdicionais.bcf" "atvsAdicionais.bbl" "atvsAdicionais" 1736533981
+  "atvsAdicionais.bcf" 1736533981 107102 2b3193a984cb234cc14d8a75f127eada "pdflatex"
   "ref.bib" 1732035203 215 6f848ad087ecf4b350fa1fdf0e9b3d51 ""
   (generated)
   "atvsAdicionais.bbl"
   "atvsAdicionais.blg"
-["pdflatex"] 1735923523 "/home/douglas/Documentos/Projetos/Disciplinas/Mestrado_SO/Topic5/Avaliativa/atvsAdicionais.tex" "atvsAdicionais.pdf" "atvsAdicionais" 1735923524
+["pdflatex"] 1736533980 "/home/douglas/Documentos/Projetos/Disciplinas/Mestrado_SO/Topic5/Avaliativa/atvsAdicionais.tex" "atvsAdicionais.pdf" "atvsAdicionais" 1736533981
   "../../Topic1/Avaliativo/Imagens/Logo UFLA - Colorida chapada.png" 1729023562 108690 6651d22fb04f28e3df8630a723677093 ""
   "/etc/texmf/web2c/texmf.cnf" 1729021430 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk" 1729029267 11524 a93d99f7505d66e2e5e4693d15fdc526 ""
@@ -15,7 +15,7 @@
   "/home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmr12.720pk" 1729023357 15944 ccf765f1328f2960fdbe0f9beaafb927 ""
   "/home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmr5.600pk" 1729176561 5692 8e9f4c867d3f3f2d1a0e577e49b716c5 ""
   "/home/douglas/.texlive2021/texmf-var/web2c/pdftex/pdflatex.fmt" 1729022899 1405652 1f117e1d2407fda86e7938d9f1d2a3ae ""
-  "/home/douglas/Documentos/Projetos/Disciplinas/Mestrado_SO/Topic5/Avaliativa/atvsAdicionais.tex" 1735923523 15161 633251d432199320a1bd3d090338520a ""
+  "/home/douglas/Documentos/Projetos/Disciplinas/Mestrado_SO/Topic5/Avaliativa/atvsAdicionais.tex" 1736533978 15900 9a67a7cc2572cb0eba9351cd3c44d40f ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmbx10.pk" 1136849718 11496 ba2f638a41e1f9ffcd2b35d81b165537 ""
   "/usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmex10.pk" 1136849718 14120 271848fde0b4235f90091a1ae962e6c6 ""
@@ -127,11 +127,11 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "Codes/atv6T5.c" 1735923350 3492 59b0086a462e8d2e0beab3632ba1b8ae ""
   "Images/saída.png" 1735923408 146346 77cc70033a1c882e729455a11b5b9bff ""
-  "atvsAdicionais.aux" 1735923524 6394 52da5c1619c597181a7bf10646c394c7 "pdflatex"
-  "atvsAdicionais.bbl" 1735923355 1794 611c2f037a2dcf611aba73780794a4c6 "biber atvsAdicionais"
-  "atvsAdicionais.run.xml" 1735923524 2497 7435d7ab256886a3646bda12a86faf11 "pdflatex"
-  "atvsAdicionais.tex" 1735923523 15161 633251d432199320a1bd3d090338520a ""
-  "atvsAdicionais.toc" 1735923524 1005 4c703aeb8851cb3212d2859e1bac2225 "pdflatex"
+  "atvsAdicionais.aux" 1736533981 6930 2c1cb41064af3dadb736d23bcb5dc15b "pdflatex"
+  "atvsAdicionais.bbl" 1736533980 1794 611c2f037a2dcf611aba73780794a4c6 "biber atvsAdicionais"
+  "atvsAdicionais.run.xml" 1736533981 2497 7435d7ab256886a3646bda12a86faf11 "pdflatex"
+  "atvsAdicionais.tex" 1736533978 15900 9a67a7cc2572cb0eba9351cd3c44d40f ""
+  "atvsAdicionais.toc" 1736533981 1005 b0e6c6cf91b940decc1150c66d8538ec "pdflatex"
   (generated)
   "atvsAdicionais.aux"
   "atvsAdicionais.bcf"

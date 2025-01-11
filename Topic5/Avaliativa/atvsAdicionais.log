@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.10.15)  3 JAN 2025 13:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.10.15)  10 JAN 2025 15:33
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -734,13 +734,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 218--219
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 225--226
-
- []
-
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 243--245
+Underfull \hbox (badness 10000) in paragraph at lines 244--245
 
  []
 
@@ -759,12 +754,12 @@ File: omscmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 13.
  [5] [6] [7])
-<./Images/saída.png, id=221, 736.7525pt x 715.67375pt>
+<./Images/saída.png, id=219, 736.7525pt x 715.67375pt>
 File: ./Images/saída.png Graphic file (type png)
 <use ./Images/saída.png>
 Package pdftex.def Info: ./Images/saída.png  used on input line 255.
 (pdftex.def)             Requested size: 472.03123pt x 458.52104pt.
- [8 <./Images/saída.png>] [9] (./atvsAdicionais.aux)
+ [8] [9 <./Images/saída.png>] (./atvsAdicionais.aux)
 Package logreq Info: Writing requests to 'atvsAdicionais.run.xml'.
 \openout1 = `atvsAdicionais.run.xml'.
 
@@ -772,16 +767,16 @@ Package logreq Info: Writing requests to 'atvsAdicionais.run.xml'.
 Here is how much of TeX's memory you used:
  21610 strings out of 480247
  368330 string characters out of 5896150
- 1402424 words of memory out of 5000000
+ 1408424 words of memory out of 5000000
  39148 multiletter control sequences out of 15000+600000
  472518 words of font info for 39 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 74i,10n,77p,1177b,2030s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 74i,10n,77p,1240b,2030s stack positions out of 5000i,500n,10000p,200000b,80000s
  </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmti10.pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmr5.600pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmr7.pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmex10.pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmmi7.pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmsy10.pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmmi10.pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmbx12.600pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmr10.pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmbx10.pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmbx12.720pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmr12.pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmbx12.1037pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmr12.720pk>
-Output written on atvsAdicionais.pdf (10 pages, 300113 bytes).
+Output written on atvsAdicionais.pdf (10 pages, 301798 bytes).
 PDF statistics:
- 670 PDF objects out of 1000 (max. 8388607)
- 337 compressed objects within 4 object streams
+ 677 PDF objects out of 1000 (max. 8388607)
+ 341 compressed objects within 4 object streams
  165 named destinations out of 1000 (max. 500000)
  99 words of extra memory for PDF output out of 10000 (max. 10000000)
 

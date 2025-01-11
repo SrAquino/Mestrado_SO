@@ -217,10 +217,6 @@ Para identificar a página a ser substituída, verificamos a linha com o menor v
 
 \textbf{Pergunta:} 4) O algoritmo PFF (Page Fault Frequency – Frequência de Falta de Página) é utilizado para controlar o tamanho do conjunto de páginas alocadas na memória RAM de um determinado processo, quando um algoritmo de alocação global é utilizado. Explique, com exemplos, como funciona este algoritmo.  \newline
 
-<<<<<<< HEAD
-\textbf{Resposta:} Imagine um processo com uma taxa de faltas de página de 10 faltas por segundo. Se o limite superior aceitável for de 5 faltas por segundo, o PFF alocará mais quadros de página para o processo, na tentativa de reduzir a taxa de faltas. Se, por outro lado, a taxa de faltas de página fosse de 1 falta por segundo, e o limite inferior aceitável fosse de 2 faltas por segundo, o PFF removeria alguns quadros de página do processo, liberando memória para outros processos.
-O PFF é baseado na observação de que, para a maioria dos algoritmos de substituição de página, como o LRU, a taxa de faltas de página diminui à medida que mais páginas são alocadas ao processo. No entanto, é importante observar que o PFF não especifica qual página deve ser substituída em caso de falta de página, ele apenas controla o tamanho do conjunto de alocação de cada processo.
-=======
 \textbf{Resposta:} O objetivo do algoritmo é manter a frequência de faltas de página de cada processo dentro de uma faixa aceitável, evitando a ultrapaginação.
 
 O sistema operacional mede a frequência de faltas de página de cada processo. Isso pode ser feito contando o número de faltas por segundo, talvez usando uma média móvel para suavizar as flutuações \textcite[p. 155]{tanenbaum2021}. Então o algoritmo PFF define dois limiares de frequência de faltas de página: um limiar superior (A) e um limiar inferior (B). 
@@ -231,31 +227,16 @@ O sistema operacional mede a frequência de faltas de página de cada processo. 
 \end{itemize}
 
 Com base na frequência de faltas, o algoritmo PFF ajusta o número de quadros de página alocados ao processo. Se a frequência de faltas estiver acima do limiar A, o sistema operacional aloca mais quadros de página ao processo para reduzir a frequência de faltas. Se a frequência de faltas estiver abaixo do limiar B, o sistema operacional remove alguns quadros de página do processo para liberar memória para outros processos.
->>>>>>> b5c83c2142c821fc8b88e362fe8c28f41dd81a78
+
+\textbf{Exemplo:} Imagine um processo com uma taxa de faltas de página de 10 faltas por segundo. Se o limite superior aceitável for de 5 faltas por segundo, o PFF alocará mais quadros de página para o processo, na tentativa de reduzir a taxa de faltas. Se, por outro lado, a taxa de faltas de página fosse de 1 falta por segundo, e o limite inferior aceitável fosse de 2 faltas por segundo, o PFF removeria alguns quadros de página do processo, liberando memória para outros processos.
+O PFF é baseado na observação de que, para a maioria dos algoritmos de substituição de página, como o LRU, a taxa de faltas de página diminui à medida que mais páginas são alocadas ao processo. No entanto, é importante observar que o PFF não especifica qual página deve ser substituída em caso de falta de página, ele apenas controla o tamanho do conjunto de alocação de cada processo.
 
 \subsection{Tradução de endereço MULTICS}
 
-<<<<<<< HEAD
-\textbf{Pergunta:} 5) Explique como funciona a tradução de um endereço MULTICS para o endereço físico da máquina. O MULTICS trabalha com segmentação com paginação. Explique como funciona o descritor de segmento juntamente com as tabelas de páginas. \textcite[p. 170]{tanenbaum2021}   \newline
-
-\textbf{Resposta:} O MULTICS implementa um sistema de memória virtual que combina segmentação com paginação, o que significa que o espaço de endereço virtual é dividido em segmentos, e cada segmento é dividido em páginas. Esse sistema oferece as vantagens da segmentação, como a facilidade de programação, modularidade, proteção e compartilhamento, com as vantagens da paginação, como o tamanho uniforme da página e a capacidade de manter apenas as páginas necessárias na memória.
-A tradução de um endereço MULTICS para um endereço físico da máquina envolve as seguintes etapas:
-
-\begin{itemize}
-  \item O endereço virtual MULTICS é composto por duas partes: o número do segmento e o endereço dentro do segmento.
-  \item O número do segmento é usado como um índice na tabela de segmentos do programa. Cada entrada na tabela de segmentos corresponde a um descritor de segmento.
-  \item O descritor de segmento contém informações sobre o segmento, incluindo um ponteiro para sua tabela de páginas, o tamanho do segmento, bits de proteção e outros itens. Se o segmento estiver na memória, o descritor conterá um ponteiro de 18 bits para a tabela de páginas do segmento.
-  \item O endereço dentro do segmento é dividido em um número de página e um deslocamento dentro da página.
-  \item O número da página é usado como um índice na tabela de páginas do segmento, que foi localizada através do descritor de segmento.
-  \item A entrada da tabela de páginas contém o endereço físico do quadro de página na memória principal.
-  \item O deslocamento é adicionado ao endereço do quadro de página para gerar o endereço físico da palavra na memória principal.
-\end{itemize}
-=======
 \textbf{Resposta:} Para traduzir um endereço MULTICS para o endereço físico da máquina, primeiramente, usando o número do segmento do endereço virtual, o sistema acessa o descritor de segmento correspondente \textcite[p. 169]{tanenbaum2021}. O descritor é verificado para determinar se o segmento está na memória principal.Se não estiver, ocorre uma falta de segmento, e o sistema operacional precisa carregar o segmento da memória secundária. Se o segmento estiver presente, o descritor fornece o ponteiro para a tabela de páginas do segmento \textcite[p. 170]{tanenbaum2021}. O número da página virtual é usado como índice na tabela de páginas para encontrar a entrada correspondente. Esta entrada contém o número do quadro de página física onde a página reside.  O número do quadro de página, obtido da tabela de páginas, é combinado com o deslocamento do endereço virtual para formar o endereço físico completo. Finalmente, o endereço físico é usado para acessar a localização da palavra desejada na memória principal \textcite[p. 171]{tanenbaum2021}.
 
 O MULTICS utiliza uma TLB (Translation Lookaside Buffer) para acelerar o processo de tradução de endereços. A TLB armazena as traduções de endereços mais recentes, permitindo que o sistema evite o acesso à tabela de páginas na maioria das vezes \textcite[p. 172]{tanenbaum2021}.
 
->>>>>>> b5c83c2142c821fc8b88e362fe8c28f41dd81a78
 
 \section{Desenvolver um programa}
 
@@ -267,11 +248,7 @@ O MULTICS utiliza uma TLB (Translation Lookaside Buffer) para acelerar o process
 \lstinputlisting[language=C]{Codes/atv6T5.c}
 
 \subsection{Testes e Resultados}
-<<<<<<< HEAD
 Como resultado da execução do código exibido na subceção \ref{sub-sec-cod}, obtivemos a saída ilustrada na figura \ref{fig:exec}. O que mostrou que a afinidade com o core funcionou corretamente, já que salvamos a afinidade na estrutura, e posteriormente verificamos em qual core a ordenação está sendo realizada, e todos os outputs mostraram que o core corresponde com o esperado.
-=======
-Como resultado da execução do código exibido na subceção \ref{sub-sec-cod}, obtivemos a saída ilustrada na figura \ref{fig:exec}.
->>>>>>> b5c83c2142c821fc8b88e362fe8c28f41dd81a78
 
 \begin{figure}[ht]
     \centering

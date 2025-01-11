@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.10.15)  10 JAN 2025 14:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.10.15)  10 JAN 2025 22:32
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -583,14 +583,7 @@ Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'brazil'.
- (./atvsAdicionais.aux
-
-LaTeX Warning: Label `sub-sec-cod' multiply defined.
-
-
-LaTeX Warning: Label `fig:exec' multiply defined.
-
-)
+ (./atvsAdicionais.aux)
 \openout1 = `atvsAdicionais.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 54.
@@ -732,51 +725,75 @@ Underfull \hbox (badness 10000) in paragraph at lines 94--95
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 100--101
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 106--107
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 112--113
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 120--121
+Underfull \hbox (badness 10000) in paragraph at lines 110--111
 
  []
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 138--139
+Underfull \hbox (badness 10000) in paragraph at lines 123--124
 
  []
 
-[3] (./atvsAdicionais.aux)
 
-LaTeX Warning: There were multiply-defined labels.
+Underfull \hbox (badness 10000) in paragraph at lines 137--138
 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 152--153
+
+ []
+
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 156.
+(./Codes/atv6.c
+LaTeX Font Info:    Trying to load font information for OML+cmr on input line 1.
+ (/usr/share/texlive/texmf-dist/tex/latex/base/omlcmr.fd
+File: omlcmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 1.
+ [3]
+LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 5.
+ (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 5.
+)
+<./Images/res6.png, id=67, 1261.71375pt x 435.6275pt>
+File: ./Images/res6.png Graphic file (type png)
+<use ./Images/res6.png>
+Package pdftex.def Info: ./Images/res6.png  used on input line 163.
+(pdftex.def)             Requested size: 472.03123pt x 162.97437pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 170--171
+
+ []
+
+[4] (./Codes/atv7cod1.c) (./Codes/atv7cod2.c [5 <./Images/res6.png>])
+<./Images/res7.png, id=153, 493.845pt x 172.645pt>
+File: ./Images/res7.png Graphic file (type png)
+<use ./Images/res7.png>
+Package pdftex.def Info: ./Images/res7.png  used on input line 183.
+(pdftex.def)             Requested size: 472.03123pt x 165.01811pt.
+ [6] [7 <./Images/res7.png>] (./atvsAdicionais.aux)
 Package logreq Info: Writing requests to 'atvsAdicionais.run.xml'.
 \openout1 = `atvsAdicionais.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 20985 strings out of 480247
- 361338 string characters out of 5896150
- 1093410 words of memory out of 5000000
- 38678 multiletter control sequences out of 15000+600000
+ 21647 strings out of 480247
+ 368652 string characters out of 5896150
+ 1414472 words of memory out of 5000000
+ 39195 multiletter control sequences out of 15000+600000
  472518 words of font info for 39 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 74i,5n,77p,1177b,1692s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmti10.pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmbx12.600pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmr10.pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmbx10.pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmbx12.720pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmr12.pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmbx12.1037pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmr12.720pk>
-Output written on atvsAdicionais.pdf (4 pages, 168617 bytes).
+ 74i,6n,77p,1177b,2024s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmsy10.pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmmi10.pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmr5.600pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmti10.pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmbx12.600pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmr10.pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmbx10.pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmbx12.720pk> </usr/share/texlive/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmr12.pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmbx12.1037pk> </home/douglas/.texlive2021/texmf-var/fonts/pk/ljfour/public/cm/cmr12.720pk>
+Output written on atvsAdicionais.pdf (8 pages, 307644 bytes).
 PDF statistics:
- 374 PDF objects out of 1000 (max. 8388607)
- 139 compressed objects within 2 object streams
- 23 named destinations out of 1000 (max. 500000)
- 118 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 606 PDF objects out of 1000 (max. 8388607)
+ 314 compressed objects within 4 object streams
+ 148 named destinations out of 1000 (max. 500000)
+ 128 words of extra memory for PDF output out of 10000 (max. 10000000)
 
