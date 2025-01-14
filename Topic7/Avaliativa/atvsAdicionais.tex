@@ -1,0 +1,210 @@
+\documentclass{article}
+\usepackage{bookmark}
+
+\usepackage{amsmath}
+
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}  % Define o idioma para português do Brasil
+\usepackage{csquotes}       % Para lidar com aspas de maneira apropriada com babel
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{xcolor}
+
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{listings}
+% Configuração do estilo de código
+\lstset{
+  language=C,
+  %basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  stringstyle=\color{red},
+  breaklines=true,
+  frame=single,
+  numbers=left,
+  numberstyle=\tiny,
+  numbersep=5pt,
+  showstringspaces=false,
+}
+
+
+\usepackage{graphicx}       % Pacote para inserção de imagens
+
+\usepackage{hyperref}       % Pacote para links clicáveis
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+}
+
+\usepackage{enumitem}       % Pacote para personalização de listas
+
+\usepackage{geometry}       % Pacote para ajustar margens
+
+\geometry{                  % Definindo margens personalizadas (em centímetros)
+  left=2.5cm,  % Margem esquerda
+  right=2.5cm, % Margem direita
+  top=2.5cm,   % Margem superior
+  bottom=2.5cm % Margem inferior
+}
+
+\usepackage[backend=biber,style=ieee]{biblatex}     % Estilo ieee para bibliografia numerada
+\addbibresource{ref.bib}                            % Arquivo .bib
+
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    % Cabeçalho personalizado
+    \includegraphics[width=0.3\textwidth]{../../Topic1/Avaliativo/Imagens/Logo UFLA - Colorida chapada.png}
+
+    \vspace*{2cm} % Espaçamento vertical antes do cabeçalho
+    \Large
+    Universidade Federal de Lavras\\
+    PPGCC\\
+    PCC508 – Sistemas Operacionais\\
+    
+    \vspace{2cm} % Espaço entre o cabeçalho e o título
+    \huge % Define o tamanho da fonte do título
+    \textbf{Tópico 7 Lista Avaliativa}
+    
+    \vfill % Adiciona um espaçamento flexível antes do rodapé (opcional)
+    
+    % Opcionalmente, você pode incluir seu nome e a data aqui
+    \large
+    Douglas Aquino T. Mendes\\
+    \today % Insere a data atual
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{Introdução}
+Este documento tem como objetivo apresentar o desenvolvimento das atividades avaliativas para o tópico 7 da disciplina de Sistemas Operacionais, focando na implementação de códigos em linguagem C. Serão apresentadas as questões, a resolução, os códigos desenvolvidos, seguido da apresentação dos resultados da execução do código.
+
+\section{Questões}
+
+\subsection{Questão 1}
+\textbf{Pergunta:} 1) Considere um algoritmo de detecção de deadlock quando existe mais de um recurso. Encontramos a seguinte situação:\newline
+Recursos existentes E = (4 2 3 1)\newline
+Recursos Disponíveis A = (2 1 0 0)\newline
+
+Matriz de alocação:\newline
+\[C =
+\begin{bmatrix}
+  0 & 0 & 1 & 0\\
+  2 & 0 & 0 & 1\\
+  0 & 1 & 2 & 0
+\end{bmatrix}
+\]
+
+Matriz de requisição:\newline
+\[R =
+\begin{bmatrix}
+  2 & 0 & 0 & 1\\
+  0 & 0 & 1 & 1\\
+  2 & 1 & 0 & 0
+\end{bmatrix}
+\]
+
+\textbf{Resposta:}  Vamos aplicar o algoritmo de detecção de deadlocks com múltiplos recursos de cada tipo para verificar se o sistema se encontra em deadlock. Esse algoritmo se baseia na comparação de vetores para encontrar um processo que possa ser executado até o fim \parencite[p. 309]{tanenbaum2021}. Os dados iniciais estão visíveis acima, com isso, o primeiro passo é verificar processos que podem ser atendidos:
+\newline
+
+Processo $P_1:$
+\begin{itemize}
+  \item Requisição R[1] = (2,0,0,1)
+  \item Recursos Disponíveis A = (2,1,0,0)
+  \item Verificação: $R[1] \leq A$
+  \item $(2,0,0,1) \leq (2,1,0,0)$
+  \item Falso $(R[1][3]=1 > A[3]=0$
+  \item \textbf{P processo $P_1$ não pode ser atendido}\newline
+\end{itemize}
+
+
+Processo $P_2:$
+\begin{itemize}
+  \item Requisição R[2] = (0,0,1,1)
+  \item Recursos Disponíveis A = (2,1,0,0)
+  \item Verificação: $R[2] \leq A$
+  \item $(0,0,1,1) \leq (2,1,0,0)$
+  \item Falso $(R[2][2]=1 > A[2]=0$
+  \item \textbf{P processo $P_2$ não pode ser atendido}\newline
+\end{itemize}
+
+Processo $P_3:$
+\begin{itemize}
+  \item Requisição R[3] = (2,1,0,0)
+  \item Recursos Disponíveis A = (2,1,0,0)
+  \item Verificação: $R[2] \leq A$
+  \item $(2,1,0,0) \leq (2,1,0,0)$
+  \item Verdadeiro
+  \item \textbf{P processo $P_3$ pode ser atendido}
+  \item Atualiza os recursos disponíveis: A = A + C[3]
+  \item A = (2,1,0,0) + (0,1,2,0) = (2,2,2,0)
+  \item Marcamos $P_3$ como concluído: Finish = (false,false,true)\newline
+\end{itemize}
+
+\textbf{Passo 2:} Verificar novamente os processos pendentes\newline
+
+Processo $P_1:$
+\begin{itemize}
+  \item Requisição R[1] = (2,0,0,1)
+  \item Recursos Disponíveis A = (2,2,2,0)
+  \item Verificação: $R[1] \leq A$
+  \item $(2,0,0,1) \leq (2,2,2,0)$
+  \item Falso $(R[1][3]=1 > A[3]=0$
+  \item \textbf{P processo $P_1$ não pode ser atendido}\newline
+\end{itemize}
+
+Processo $P_2:$
+\begin{itemize}
+  \item Requisição R[2] = (0,0,1,1)
+  \item Recursos Disponíveis A = (2,2,2,0)
+  \item Verificação: $R[2] \leq A$
+  \item $(0,0,1,1) \leq (2,2,2,0)$
+  \item Falso $(R[2][3]=1 > A[3]=0$
+  \item \textbf{P processo $P_2$ não pode ser atendido}\newline
+\end{itemize}
+
+Após analisar todos os processos, os processos $P_1 e P_2$ não podem ser atendidos, mesmo após $P_3$ ser concluído. Isso indica que os processos $P_1 e P_2$ estão em deadlock.
+
+
+\subsection{Questão 2}
+
+\textbf{Pergunta:} 2) Descreva quais são as maneiras de se recuperar de um deadlock, e se elas são viáveis na prática.\newline
+
+\textbf{Resposta:} Existem três maneiras principais de recuperar um sistema de um deadlock (impasse).
+
+\textbf{Recuperação por preempção: }Um recurso pode ser retirado do seu atual proprietário e realocado para outro processo. Essa abordagem pode ser eficaz para recursos como impressoras, mas pode ser difícil ou impossível para recursos como arquivos ou registros de banco de dados \parencite[p. 310]{tanenbaum2021}.
+
+\textbf{Recuperação por reversão: }Um processo que possui um recurso necessário para romper o impasse pode ser revertido para um estado anterior, antes de ter adquirido o recurso. O estado do processo pode ser salvo periodicamente em arquivos de \textit{checkpoint}, e o processo pode ser reiniciado a partir de um desses \textit{checkpoints}. Essa abordagem pode ser eficaz, mas envolve a perda de trabalho realizado pelo processo desde o último checkpoint \parencite[p. 310]{tanenbaum2021}.
+
+\textbf{Recuperação por eliminação de processos:} Um ou mais processos envolvidos no impasse podem ser eliminados. Essa é a abordagem mais simples, mas também a mais drástica, pois pode resultar na perda de dados ou no término prematuro de processos importantes  \parencite[p. 310]{tanenbaum2021}.\newline
+
+Na prática, a viabilidade dessas abordagens depende do sistema e da natureza do impasse. Em alguns casos, uma combinação dessas técnicas pode ser usada. Por exemplo, um sistema pode tentar primeiro recuperar por preempção de recursos não críticos. Se isso não funcionar, pode tentar reverter processos para checkpoints. Se tudo mais falhar, pode ser necessário eliminar processos. É importante observar que nenhuma dessas abordagens é ideal e todas elas envolvem compensações. A melhor abordagem para lidar com impasses é evitá-los em primeiro lugar. Isso pode ser feito por meio de técnicas como ordenação de recursos, alocação cuidadosa de recursos ou o uso de algoritmos como o algoritmo do banqueiro \parencite[p. 316]{tanenbaum2021}. No entanto, mesmo com essas técnicas, os impasses ainda podem ocorrer e é importante ter um plano para lidar com eles quando eles surgirem.
+
+\subsection{Questão 3}
+
+\textbf{Pergunta:} Suponha que existam 3 processos e um tipo de recurso somente. No sistema, existem 4 instâncias do recurso. Cada processo precisa no máximo de 2 instâncias do mesmo. Existe alguma circunstância que poderia gerar deadlock, neste caso? Explique.\newline
+
+\textbf{Resposta: } Como cada processo precisa no máximo de 2 instâncias, e existem 4 instâncias disponíveis, sempre haverá a possibilidade de um processo liberar recursos suficientes para que outro processo prossiga. Portanto, nunca haverá uma espera circular, e um deadlock não poderá ocorrer.
+
+\subsection{Questão 4}
+
+\textbf{Pergunta:} 4)  Explique brevemente o algoritmo do banqueiro para um tipo de recurso.\newline
+
+\textbf{Resposta:} O algoritmo do banqueiro é uma técnica para evitar deadlocks, modelando a alocação de recursos como um banco que concede crédito a um grupo de clientes (processos). O "banco" (sistema operacional) possui um número limitado de unidades de um recurso. Cada cliente (processo) deve declarar antecipadamente o número máximo de unidades do recurso que ele precisará \parencite[p. 313]{tanenbaum2021}. O algoritmo funciona da seguinte forma:
+
+\begin{itemize}
+  \item Quando um cliente solicita unidades do recurso, o banqueiro verifica se a concessão da solicitação levaria a um estado inseguro. Um estado é considerado seguro se existir uma sequência de alocações e liberações de recursos que permita a todos os clientes obterem o número máximo de unidades que eles solicitaram. Um estado é inseguro se não existir tal sequência, o que pode levar a um impasse \parencite[p. 312]{tanenbaum2021}.
+  \item Se conceder a solicitação levar a um estado seguro, o banqueiro a concede. Caso contrário, o banqueiro adia a solicitação.
+\end{itemize}
+
+O objetivo do algoritmo é garantir que o sistema sempre permaneça em um estado seguro, evitando a ocorrência de deadlocks.
+
+\printbibliography % Imprime a lista de referências
+
+
+\end{document}

@@ -1,0 +1,112 @@
+\documentclass{article}
+\usepackage{bookmark}
+
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}  % Define o idioma para português do Brasil
+\usepackage{csquotes}       % Para lidar com aspas de maneira apropriada com babel
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{xcolor}
+
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{listings}
+% Configuração do estilo de código
+\lstset{
+  language=C,
+  %basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  stringstyle=\color{red},
+  breaklines=true,
+  frame=single,
+  numbers=left,
+  numberstyle=\tiny,
+  numbersep=5pt,
+  showstringspaces=false,
+}
+
+
+\usepackage{graphicx}       % Pacote para inserção de imagens
+
+\usepackage{hyperref}       % Pacote para links clicáveis
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+}
+
+\usepackage{enumitem}       % Pacote para personalização de listas
+
+\usepackage{geometry}       % Pacote para ajustar margens
+
+\geometry{                  % Definindo margens personalizadas (em centímetros)
+  left=2.5cm,  % Margem esquerda
+  right=2.5cm, % Margem direita
+  top=2.5cm,   % Margem superior
+  bottom=2.5cm % Margem inferior
+}
+
+\usepackage[backend=biber,style=ieee]{biblatex}     % Estilo ieee para bibliografia numerada
+\addbibresource{ref.bib}                            % Arquivo .bib
+
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    % Cabeçalho personalizado
+    \includegraphics[width=0.3\textwidth]{../../Topic1/Avaliativo/Imagens/Logo UFLA - Colorida chapada.png}
+
+    \vspace*{2cm} % Espaçamento vertical antes do cabeçalho
+    \Large
+    Universidade Federal de Lavras\\
+    PPGCC\\
+    PCC508 – Sistemas Operacionais\\
+    
+    \vspace{2cm} % Espaço entre o cabeçalho e o título
+    \huge % Define o tamanho da fonte do título
+    \textbf{Tópico 9 Lista Avaliativa}
+
+    \vfill % Adiciona um espaçamento flexível antes do rodapé (opcional)
+    
+    % Opcionalmente, você pode incluir seu nome e a data aqui
+    \large
+    Douglas Aquino T. Mendes\\
+    \today % Insere a data atual
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{Introdução}
+Este documento tem como objetivo apresentar o desenvolvimento das atividades avaliativas para o tópico 9 da disciplina de Sistemas Operacionais, focando na implementação de códigos em linguagem C. Serão apresentadas as questões, a resolução, os códigos desenvolvidos, seguido da apresentação dos resultados da execução do código.
+
+\section{Questões}
+
+\subsection{1}
+\textbf{Pergunta:} 1) Explique o que é um driver de dispositivo e como funciona a interface do driver com o sistema operacional.\newline
+
+\textbf{Resposta:} Um driver de dispositivo é um software que permite que o sistema operacional se comunique e controle um dispositivo de hardware específico \parencite[p. 533]{tanenbaum2021}. Ele age como um tradutor entre o sistema operacional, que possui uma visão abstrata do hardware, e o controlador do dispositivo, que possui uma visão de baixo nível e específica do hardware.
+
+A interface do driver com o sistema operacional é definida por um conjunto de funções que o driver deve fornecer. Essas funções permitem que o sistema operacional interaja com o dispositivo de forma abstrata, sem precisar conhecer os detalhes de implementação do driver \parencite[p. 250]{tanenbaum2021}. Por exemplo, um driver de disco pode fornecer funções para ler e gravar blocos de dados, enquanto um driver de teclado pode fornecer funções para ler caracteres digitados. O sistema operacional se comunica com o driver através de chamadas de sistema ou outros mecanismos de comunicação entre o espaço do usuário e o espaço do kernel. O driver, por sua vez, se comunica com o controlador do dispositivo através da E/S mapeada na memória ou portas de E/S \parencite[p. 236]{tanenbaum2021}.
+
+\subsection{2}
+
+\textbf{Pergunta:} 2) Explique a diferença entre a comunicação síncrona e assíncrona. Para um programa de usuário, qual o modelo de comunicação mais conveniente? Explique. \newline
+
+\textbf{Resposta:} A comunicação síncrona ocorre quando o emissor de uma mensagem fica bloqueado, aguardando a resposta do receptor antes de prosseguir com sua execução. É como uma conversa telefônica, onde cada pessoa espera a outra terminar de falar antes de responder. Já na comunicação assíncrona, o emissor envia a mensagem e continua sua execução sem esperar a resposta. É como enviar uma carta pelo correio: você a envia e continua com suas atividades sem esperar uma resposta imediata.
+
+Para programas de usuário, a escolha deve considerar o tipo de interação esperada e o comportamento do sistema. Por exemplo, interfaces altamente interativas, como chats ou jogos multiplayer, podem preferir comunicação síncrona. Sistemas com várias operações simultâneas, como aplicativos de e-commerce ou processamento de grandes volumes de dados, geralmente funcionam melhor com comunicação assíncrona.
+
+\subsection{3}
+
+\textbf{Pergunta:} 3) Explique o software de E/S no nível de usuário, dando uma especial atenção à técnica de spooling. \newline
+
+\textbf{Resposta: }O software de E/S no nível de usuário consiste em bibliotecas e programas que facilitam a interação dos processos com os dispositivos de E/S. Uma parte importante desse software é independente de dispositivo, ou seja, pode ser usada com diversos tipos de dispositivos sem modificações. Uma técnica importante no nível de usuário é o \textbf{spooling}, que permite o compartilhamento de dispositivos de E/S dedicados, como impressoras, em sistemas multiprogramação.
+Imagine um sistema onde múltiplos processos precisam imprimir documentos. Sem spooling, se um processo abre o arquivo especial de caractere da impressora e demora para imprimir, outros processos ficam bloqueados, aguardando a liberação do dispositivo. Com o spooling, o sistema operacional cria um diretório de spool onde os processos podem depositar seus trabalhos de impressão. Um daemon de impressão (um processo em segundo plano) é responsável por monitorar o diretório e enviar os trabalhos para a impressora, um de cada vez \parencite[p. 254]{tanenbaum2021}.
+
+\printbibliography % Imprime a lista de referências
+
+
+\end{document}
