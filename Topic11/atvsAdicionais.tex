@@ -1,0 +1,182 @@
+\documentclass{article}
+\usepackage{bookmark}
+
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}  % Define o idioma para português do Brasil
+\usepackage{csquotes}       % Para lidar com aspas de maneira apropriada com babel
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{xcolor}
+
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{listings}
+% Configuração do estilo de código
+\lstset{
+  language=C,
+  %basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  stringstyle=\color{red},
+  breaklines=true,
+  frame=single,
+  numbers=left,
+  numberstyle=\tiny,
+  numbersep=5pt,
+  showstringspaces=false,
+}
+
+
+\usepackage{graphicx}       % Pacote para inserção de imagens
+
+\usepackage{hyperref}       % Pacote para links clicáveis
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+}
+
+\usepackage{enumitem}       % Pacote para personalização de listas
+
+\usepackage{geometry}       % Pacote para ajustar margens
+
+\geometry{                  % Definindo margens personalizadas (em centímetros)
+  left=2.5cm,  % Margem esquerda
+  right=2.5cm, % Margem direita
+  top=2.5cm,   % Margem superior
+  bottom=2.5cm % Margem inferior
+}
+
+\usepackage[backend=biber,style=ieee]{biblatex}     % Estilo ieee para bibliografia numerada
+\addbibresource{ref.bib}                            % Arquivo .bib
+
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    % Cabeçalho personalizado
+    \includegraphics[width=0.3\textwidth]{../Topic1/Avaliativo/Imagens/Logo UFLA - Colorida chapada.png}
+
+    \vspace*{2cm} % Espaçamento vertical antes do cabeçalho
+    \Large
+    Universidade Federal de Lavras\\
+    PPGCC\\
+    PCC508 – Sistemas Operacionais\\
+    
+    \vspace{2cm} % Espaço entre o cabeçalho e o título
+    \huge % Define o tamanho da fonte do título
+    \textbf{Tópico 11 Lista Avaliativa}
+    
+    \vfill % Adiciona um espaçamento flexível antes do rodapé (opcional)
+    
+    % Opcionalmente, você pode incluir seu nome e a data aqui
+    \large
+    Douglas Aquino T. Mendes\\
+    \today % Insere a data atual
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{Introdução}
+Este documento tem como objetivo apresentar o desenvolvimento das atividades avaliativas para o tópico 11 da disciplina de Sistemas Operacionais, focando na implementação de códigos em linguagem C. Serão apresentadas as questões, a resolução, os códigos desenvolvidos, seguido da apresentação dos resultados da execução do código.
+
+\section{Questões}
+
+\subsection{1}
+\textbf{Pergunta:} 1) Explique os diferentes estados que um processo do Linux pode estar. Também fale sobre as possíveis transições entre os estados.\newline
+
+\textbf{Resposta:} Os estados principais de um processo no Linux são:
+\begin{itemize}
+  
+  \item Em Execução (Running): O processo está atualmente utilizando a CPU e executando suas instruções \parencite[p. 72]{tanenbaum2021}.
+  \item Pronto (Ready): O processo está apto a ser executado, mas está temporariamente parado pois a CPU está alocada para outro processo. O processo está aguardando sua vez para utilizar a CPU. A transição para o estado de execução ocorre quando o escalonador de processos decide que o processo pronto deve ser executado \parencite[p. 72]{tanenbaum2021}.
+  \item Bloqueado (Blocked): O processo não pode continuar sua execução até que um evento externo ocorra. Esse evento pode ser a conclusão de uma operação de I/O, a chegada de dados em um pipe ou socket, ou a liberação de um recurso. O processo permanece neste estado até que o evento esperado aconteça, momento em que ele passa para o estado pronto \parencite[p. 72]{tanenbaum2021}.
+\end{itemize}
+
+As transições entre esses estados são as seguintes:
+
+\begin{itemize}
+  \item Execução → Bloqueado: Ocorre quando o processo precisa esperar por um evento externo, como uma operação de I/O, a leitura de um pipe vazio, ou um recurso não disponível. A transição é iniciada pelo próprio processo ao realizar uma chamada de sistema que causa o bloqueio \parencite[p. 64]{tanenbaum2021}.
+  \item Execução → Pronto: Ocorre quando o escalonador do sistema operacional decide que o tempo de execução do processo atual expirou ou que um outro processo com prioridade mais alta deve ser executado. O processo é interrompido e colocado na fila de processos prontos \parencite[p. 64]{tanenbaum2021}.
+  \item Pronto → Execução: Ocorre quando o escalonador de processos escolhe o processo pronto para executar na CPU. Essa escolha é baseada em algoritmos de escalonamento que tentam equilibrar eficiência e justiça entre os processos \parencite[p. 64]{tanenbaum2021}.
+  \item Bloqueado → Pronto: Ocorre quando o evento pelo qual o processo estava esperando acontece \parencite[p. 64]{tanenbaum2021}.
+\end{itemize}
+
+\subsection{2}
+
+\textbf{Pergunta:} 2) Explique como funciona a criação dos processos no Linux, quais as chamadas de sistema envolvidas e como a chamada fork é implementada.\newline
+
+\textbf{Resposta:}  O processo de criação envolve uma série de chamadas de sistema e estruturas de dados, com a chamada fork sendo a principal maneira de se criar um novo processo \parencite[p. 37]{tanenbaum2021}. Chamadas de Sistema Envolvidas:
+
+\begin{itemize}
+  \item fork(): Esta é a chamada de sistema essencial para criar um novo processo no Linux. Ela cria uma cópia exata do processo original, incluindo descritores de arquivos, registradores e tudo mais. O processo original é chamado de processo pai, e o novo processo é chamado de processo filho. Cada um tem suas próprias imagens de memória privadas. Após o fork, o pai e o filho seguem seus próprios caminhos. O valor de retorno de fork é zero no processo filho e o PID (Process Identifier) do filho no processo pai.
+  \item waitpid(): Usada pelo processo pai para esperar que um processo filho termine a sua execução. 
+  \item execve() (ou exec): Após um fork, o processo filho geralmente precisa executar um código diferente do processo pai. A chamada execve substitui a imagem de núcleo do processo filho pelo arquivo nomeado como parâmetro, permitindo que ele execute um novo programa. Na prática, a chamada de sistema em si é exec, mas várias rotinas de biblioteca a chamam com parâmetros diferentes.
+  \item exit(): Essa chamada é usada por um processo para terminar sua execução e retornar um status de saída para o processo pai através do waitpid.
+\end{itemize}
+
+A chamada de sistema fork() é implementada com uma série de passos no núcleo do Linux, a Implementação da Chamada fork():
+
+\begin{itemize}
+  \item O núcleo Linux representa internamente os processos através da estrutura task\_struct. Ao executar a chamada fork(), o núcleo cria uma nova estrutura task\_struct para o processo filho, assim como outras estruturas de dados de acompanhamento, como a pilha do modo núcleo e a estrutura thread\_info \parencite[p. 306]{tanenbaum2021}.
+  \item Uma área de usuário é criada para o processo filho e é preenchida principalmente com dados do pai. O filho recebe um PID, seu mapa de memória é configurado e ele recebe acesso compartilhado aos arquivos do seu pai \parencite[p. 306]{tanenbaum2021}.
+  \item O mapa de memória do processo filho é configurado. Em sistemas que suportam arquivos mapeados, as tabelas de páginas são configuradas para indicar que nenhuma página está na memória, exceto talvez uma página de pilha, mas que o espaço de endereçamento tem o suporte do arquivo executável no disco  \parencite[p. 512]{tanenbaum2021}.
+  \item Os arquivos abertos pelo processo pai são compartilhados com o filho. Mudanças feitas nos arquivos por um processo são visíveis para o outro.
+  \item Os registradores do processo filho são configurados.
+  \item A chamada fork() retorna um valor diferente de zero (o PID do filho) para o processo pai e zero para o processo filho. Isso permite que os processos saibam qual deles é o pai e qual é o filho e executar diferentes blocos de código.
+\end{itemize}
+
+
+\subsection{3}
+
+\textbf{Pergunta:} 3) Como o Linux trata as threads de programas de usuário? Como funciona a criação das mesmas com a chamada de sistema clone?\newline
+
+\textbf{Resposta: }No Linux, threads de programas de usuário são tratadas de forma semelhante a processos, compartilhando diversos recursos. O núcleo do Linux utiliza a estrutura \texttt{task\_struct} para representar tanto processos quanto threads \parencite[p. 511]{tanenbaum2021}.
+
+Cada entidade de execução (processo ou thread) é tratada como uma tarefa distinta pelo sistema. A estrutura \texttt{task\_struct} representa qualquer contexto de execução, e tanto processos quanto threads possuem instâncias dessa estrutura. Threads de usuário operam no modo usuário, mas chamadas de sistema são executadas no modo núcleo. O escalonador trata threads e processos com a mesma política, permitindo execução independente.
+
+A chamada de sistema \texttt{clone()} é utilizada para criar threads, permitindo controle sobre o compartilhamento de recursos. Sua sintaxe é:
+\begin{center}
+    \texttt{pid = clone(function, stack\_ptr, sharing\_flags, arg);}
+\end{center}
+\begin{itemize}
+    \item \texttt{function}: Ponteiro para a função que o novo thread executará.
+    \item \texttt{stack\_ptr}: Ponteiro para a pilha do novo thread.
+    \item \texttt{arg}: Argumento passado para a função.
+    \item \texttt{sharing\_flags}: Define quais recursos serão compartilhados.
+\end{itemize}
+
+\textbf{Flags de Compartilhamento:}
+\begin{itemize}
+    \item \textbf{CLONE\_VM:} Compartilha espaço de endereçamento (memória virtual).
+    \item \textbf{CLONE\_FS:} Compartilha diretórios raiz e de trabalho.
+    \item \textbf{CLONE\_FILES:} Compartilha descritores de arquivos.
+    \item \textbf{CLONE\_SIGHAND:} Compartilha tratadores de sinais.
+    \item \textbf{CLONE\_PARENT:} Mantém o mesmo processo pai do thread criador.
+\end{itemize}
+
+A granularidade no compartilhamento de recursos é possível devido à separação de estruturas de dados no kernel.
+
+O Linux distingue entre \textbf{PID (Process Identifier)} e \textbf{TID (Thread Identifier)}. O PID identifica um processo, enquanto o TID identifica uma tarefa dentro de um processo. Todos os threads de um mesmo processo compartilham o mesmo PID. Quando \texttt{clone()} cria um novo processo sem compartilhamento, um novo PID é atribuído \parencite[p. 515]{tanenbaum2021}.
+
+
+\subsection{4}
+
+\textbf{Pergunta:} 4) Quais são as tarefas realizadas pela chamada do\_exit()?\newline
+
+\textbf{Resposta:} A chamada do\_exit() é uma função interna do kernel do Linux que é executada quando um processo termina, seja por uma saída normal, por um erro ou por ser morto por outro processo. Esta função é responsável por liberar os recursos usados pelo processo e notificar o processo pai \parencite[p. 62]{tanenbaum2021}. As principais tarefas realizadas pela função do\_exit() são:
+
+\begin{itemize}
+  \item Liberar a Memória
+  \item Liberar Recursos do Sistema
+  \item Notificação do Processo Pai
+  \item Remover a Estrutura task\_struct
+  \item Chamada de callbacks
+\end{itemize}
+
+\printbibliography % Imprime a lista de referências
+
+
+\end{document}
