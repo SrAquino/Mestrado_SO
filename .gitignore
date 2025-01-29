@@ -7,3 +7,17 @@
 *.log
 *.gz
 *.toc
+*run.xml
+*.out
+
+*.ko
+*.o
+*.mod
+*.cmd
+*.symvers
+*.dwo
+*.dwo.*
+*.dwo-*
+*.mod.*
+
+/Entrega4a13
